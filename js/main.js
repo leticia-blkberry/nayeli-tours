@@ -82,7 +82,8 @@ if (starsGroup) {
 const canvas = document.getElementById("magic");
 if (canvas && !reduceMotion) {
   const ctx = canvas.getContext("2d");
-  const colors = ["95,240,230", "122,162,255", "185,140,255", "255,201,120"];
+  // Colores del logo: cian, celeste, azul, violeta, aqua, verde hoja
+  const colors = ["39,228,231", "13,152,222", "15,93,239", "139,44,241", "36,213,184", "60,205,136"];
   let w, h, dpr, spores = [], sparks = [];
 
   const resize = () => {
