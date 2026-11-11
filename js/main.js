@@ -1,7 +1,7 @@
 // ===== Configuración =====
 // Número de WhatsApp con código de país, solo dígitos (ej. México: "5219511234567").
 // Mientras esté vacío, los botones de WhatsApp abren Messenger de la página de Facebook.
-const WHATSAPP_NUMBER = "";
+const WHATSAPP_NUMBER = "529511067780";
 const MESSENGER_URL = "https://m.me/Nayetours";
 
 // ===== Enlaces de WhatsApp =====

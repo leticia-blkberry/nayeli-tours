@@ -8,16 +8,14 @@ Sitio estático (HTML + CSS + JS, sin compilación), listo para GitHub Pages.
 ```
 index.html        Página única: inicio, experiencia, servicios, galería, opiniones, eventos, cuidado, contacto
 css/styles.css    Estilos
-js/main.js        Configuración de WhatsApp, menú móvil, galería y animaciones
+js/main.js        Número de WhatsApp (WHATSAPP_NUMBER), menú móvil, galería y animaciones
 images/logo.jpg   Logotipo (también logo-160.jpg y apple-touch-icon.png)
 images/galeria/   Fotos de la galería
 ```
 
 ## Pendiente del cliente
 
-1. **Número de WhatsApp** — en `js/main.js`, llena `WHATSAPP_NUMBER` (solo dígitos con código de país, ej. `5219511234567`).
-   Mientras esté vacío, todos los botones de WhatsApp abren Messenger (`m.me/Nayetours`).
-2. **Fotos** — sube las fotos (JPG, ~1600px de ancho) a `images/galeria/` con estos nombres.
+1. **Fotos** — sube las fotos (JPG, ~1600px de ancho) a `images/galeria/` con estos nombres.
    Si falta alguna, se muestra una ilustración en su lugar.
 
    | Archivo | Foto sugerida |
@@ -32,8 +30,8 @@ images/galeria/   Fotos de la galería
    | `hamacas.jpg` | Espacio con hamacas |
    | `cabana.jpg` | Cabaña con el letrero de hongo iluminado |
 
-3. **Servicios y precios** — los textos de Senderismo, Medicina, Temazcal y Hospedaje (sección `#servicios`) son una propuesta; ajustar descripciones, duración y precios.
-4. **Eventos** — actualizar la sección `#eventos` cuando haya nuevas fechas.
+2. **Servicios y precios** — los textos de Senderismo, Medicina, Temazcal y Hospedaje (sección `#servicios`) son una propuesta; ajustar descripciones, duración y precios.
+3. **Eventos** — actualizar la sección `#eventos` cuando haya nuevas fechas.
 
 ## Ver localmente
 
