@@ -9,15 +9,17 @@
   <meta property="og:image" content="images/logo.jpg">
   <meta property="og:description" content="Una aventura única que combina el senderismo en paisajes naturales impresionantes con la exploración consciente de hongos mágicos.">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#14281d">
+  <meta name="theme-color" content="#05080f">
   <link rel="icon" href="images/logo-160.jpg" type="image/jpeg">
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+  <canvas id="magic" aria-hidden="true"></canvas>
 
   <header class="site-header" id="top">
     <div class="container header-inner">
@@ -47,28 +49,72 @@
         <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice">
           <defs>
             <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#2b2f5c"/>
-              <stop offset=".45" stop-color="#8a6aa8"/>
-              <stop offset=".75" stop-color="#f29a76"/>
-              <stop offset="1" stop-color="#ffd2a8"/>
+              <stop offset="0" stop-color="#03050d"/>
+              <stop offset=".35" stop-color="#0d1233"/>
+              <stop offset=".62" stop-color="#2a1d55"/>
+              <stop offset=".82" stop-color="#173f5c"/>
+              <stop offset="1" stop-color="#0b2a2f"/>
             </linearGradient>
+            <linearGradient id="aurora1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#5ff0e6" stop-opacity="0"/>
+              <stop offset=".3" stop-color="#5ff0e6" stop-opacity=".55"/>
+              <stop offset=".65" stop-color="#a46bff" stop-opacity=".5"/>
+              <stop offset="1" stop-color="#a46bff" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="aurora2" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#3d8bff" stop-opacity="0"/>
+              <stop offset=".5" stop-color="#3d8bff" stop-opacity=".45"/>
+              <stop offset="1" stop-color="#5ff0e6" stop-opacity="0"/>
+            </linearGradient>
+            <radialGradient id="moonGlow">
+              <stop offset="0" stop-color="#e8f4ff" stop-opacity=".55"/>
+              <stop offset=".4" stop-color="#9fc4ff" stop-opacity=".15"/>
+              <stop offset="1" stop-color="#9fc4ff" stop-opacity="0"/>
+            </radialGradient>
             <linearGradient id="mist" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#fff" stop-opacity="0"/>
-              <stop offset=".5" stop-color="#fff" stop-opacity=".35"/>
-              <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+              <stop offset="0" stop-color="#bfe9ff" stop-opacity="0"/>
+              <stop offset=".5" stop-color="#bfe9ff" stop-opacity=".22"/>
+              <stop offset="1" stop-color="#bfe9ff" stop-opacity="0"/>
             </linearGradient>
+            <linearGradient id="cap" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#b47bff"/>
+              <stop offset=".55" stop-color="#4f7dff"/>
+              <stop offset="1" stop-color="#4ff3f0"/>
+            </linearGradient>
+            <linearGradient id="stem" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#9ffbf5"/>
+              <stop offset="1" stop-color="#2a9fb0"/>
+            </linearGradient>
+            <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="7" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="soft"><feGaussianBlur stdDeviation="22"/></filter>
             <symbol id="pine" viewBox="0 0 40 120">
               <rect x="18" y="96" width="4" height="24"/>
               <path d="M20 0 4 34h9L0 62h11L-2 98h44L29 62h11L27 34h9z"/>
             </symbol>
+            <symbol id="shroom" viewBox="0 0 60 84" overflow="visible">
+              <path d="M27 30c-1 20-3 32-6 52h18c-3-20-5-32-6-52z" fill="url(#stem)"/>
+              <path d="M3 34C3 14 15 3 30 3s27 11 27 31c-8-4-17-5-27-5S11 30 3 34z" fill="url(#cap)"/>
+              <path d="M8 32c7-3 14-4 22-4s15 1 22 4" stroke="#c9fffb" stroke-width="1.5" fill="none" opacity=".7"/>
+              <g stroke="#e3d4ff" stroke-width="1" opacity=".45"><path d="M30 6v22M20 9l4 19M40 9l-4 19M12 16l7 13M48 16l-7 13"/></g>
+            </symbol>
           </defs>
           <rect width="1440" height="900" fill="url(#sky)"/>
-          <circle cx="1040" cy="560" r="70" fill="#ffe4c2" opacity=".85"/>
-          <path d="M0 600 160 520l140 50 180-110 170 90 150-70 190 100 170-80 150 60 130-40v380H0z" fill="#6c5a8c" opacity=".7"/>
-          <rect y="560" width="1440" height="120" fill="url(#mist)"/>
-          <path d="M0 680 120 630l200 40 160-70 200 80 180-50 200 60 180-40 200 40v210H0z" fill="#3f4a5e"/>
-          <rect y="650" width="1440" height="90" fill="url(#mist)"/>
-          <g fill="#1f3a2b">
+          <g id="stars" fill="#fff"></g>
+          <g class="aurora" filter="url(#soft)">
+            <path d="M-100 260C200 140 420 300 720 200s520-120 820 20v90c-300-120-520-40-820 60S180 280-100 360z" fill="url(#aurora1)"/>
+            <path d="M-50 380C260 300 520 420 820 320s420-80 700 0v60c-280-70-420 0-700 90S220 380-50 450z" fill="url(#aurora2)"/>
+          </g>
+          <circle class="moon-glow" cx="790" cy="125" r="170" fill="url(#moonGlow)"/>
+          <circle cx="790" cy="125" r="40" fill="#eef6ff"/>
+          <circle cx="803" cy="116" r="8" fill="#d6e4f5"/><circle cx="780" cy="141" r="5" fill="#d6e4f5"/>
+          <path d="M0 600 160 520l140 50 180-110 170 90 150-70 190 100 170-80 150 60 130-40v380H0z" fill="#1d1f4a"/>
+          <rect class="mist mist-a" x="-200" y="560" width="1840" height="130" fill="url(#mist)"/>
+          <path d="M0 680 120 630l200 40 160-70 200 80 180-50 200 60 180-40 200 40v210H0z" fill="#121735"/>
+          <rect class="mist mist-b" x="-200" y="650" width="1840" height="110" fill="url(#mist)"/>
+          <g fill="#0b1a1f">
             <use href="#pine" x="20" y="640" width="50" height="150"/>
             <use href="#pine" x="80" y="610" width="60" height="180"/>
             <use href="#pine" x="150" y="660" width="44" height="130"/>
@@ -76,17 +122,28 @@
             <use href="#pine" x="1290" y="650" width="46" height="140"/>
             <use href="#pine" x="1350" y="600" width="66" height="195"/>
           </g>
-          <path d="M0 760c240-30 480-30 720-10s480 20 720-10v160H0z" fill="#14281d"/>
-          <g fill="#0f1f17">
+          <path d="M0 760c240-30 480-30 720-10s480 20 720-10v160H0z" fill="#060d10"/>
+          <g fill="#04080a">
             <use href="#pine" x="-10" y="560" width="90" height="300"/>
             <use href="#pine" x="1360" y="540" width="100" height="330"/>
+          </g>
+          <g filter="url(#glow)">
+            <use class="shroom s1" href="#shroom" x="190" y="738" width="60" height="84"/>
+            <use class="shroom s2" href="#shroom" x="240" y="770" width="40" height="56"/>
+            <use class="shroom s3" href="#shroom" x="150" y="784" width="32" height="45"/>
+            <use class="shroom s2" href="#shroom" x="640" y="806" width="34" height="48"/>
+            <use class="shroom s1" href="#shroom" x="676" y="784" width="50" height="70"/>
+            <use class="shroom s3" href="#shroom" x="730" y="812" width="28" height="40"/>
+            <use class="shroom s3" href="#shroom" x="1150" y="770" width="44" height="62"/>
+            <use class="shroom s1" href="#shroom" x="1190" y="730" width="66" height="92"/>
+            <use class="shroom s2" href="#shroom" x="1262" y="786" width="34" height="48"/>
           </g>
         </svg>
       </div>
       <div class="container hero-grid">
       <div class="hero-content">
-        <p class="eyebrow">San José del Pacífico · Oaxaca, México</p>
-        <h1>Bosque, niebla y <span>conciencia</span></h1>
+        <p class="eyebrow">✦ San José del Pacífico · Oaxaca, México ✦</p>
+        <h1>Bosque, niebla y <span class="shimmer">conciencia</span></h1>
         <p class="lead">Únete a nosotros en una aventura única que combina el senderismo en paisajes naturales impresionantes con la exploración consciente de hongos mágicos. Guiados por expertos en el entorno y la experiencia psicodélica.</p>
         <div class="hero-actions">
           <a href="#contacto" class="btn btn-whatsapp js-whatsapp" data-msg="¡Hola! Quiero información sobre los tours de Nayeli Tours.">
@@ -112,7 +169,7 @@
       <div class="container">
         <header class="section-head">
           <p class="eyebrow">La experiencia</p>
-          <h2>Caminar el bosque, escuchar por dentro</h2>
+          <h2>Caminar el bosque, escuchar <em>por dentro</em></h2>
           <p>A más de 2,400 metros de altura, entre pinos, niebla y atardeceres sobre el mar de nubes, te acompañamos en un recorrido donde la naturaleza y la introspección van de la mano.</p>
         </header>
         <div class="pillars">
@@ -153,7 +210,7 @@
       <div class="container">
         <header class="section-head">
           <p class="eyebrow">Servicios</p>
-          <h2>Todo para tu viaje a la montaña</h2>
+          <h2>Todo para tu viaje a la <em>montaña</em></h2>
           <p>Combina los servicios que quieras. Cada grupo es distinto: escríbenos y armamos tu experiencia.</p>
         </header>
         <div class="tours">
@@ -207,7 +264,7 @@
       <div class="container">
         <header class="section-head">
           <p class="eyebrow">Galería</p>
-          <h2>Así se vive San José del Pacífico</h2>
+          <h2>Así se vive <em>San José del Pacífico</em></h2>
         </header>
         <div class="gallery">
           <figure class="g-item g-tall" data-fallback="dusk"><img src="images/galeria/atardecer.jpg" alt="Atardecer entre pinos" loading="lazy"><figcaption>Atardecer entre pinos</figcaption></figure>
@@ -253,7 +310,7 @@
       <div class="container">
         <header class="section-head">
           <p class="eyebrow">Eventos</p>
-          <h2>Ceremonias y encuentros</h2>
+          <h2>Ceremonias y <em>encuentros</em></h2>
           <p>Organizamos eventos especiales a lo largo del año. Estos son algunos de los más recientes.</p>
         </header>
         <div class="events">
@@ -281,7 +338,7 @@
       <div class="container care">
         <div>
           <p class="eyebrow">Viaje consciente</p>
-          <h2>Tu bienestar es lo primero</h2>
+          <h2>Tu bienestar es lo <em>primero</em></h2>
           <p>Creemos en una experiencia respetuosa con la tierra, con la tradición y contigo.</p>
         </div>
         <ul class="care-list">
@@ -298,7 +355,7 @@
       <div class="container contact">
         <div class="contact-info">
           <p class="eyebrow">Contacto</p>
-          <h2>Planeemos tu aventura</h2>
+          <h2>Planeemos tu <em>aventura</em></h2>
           <p>Escríbenos con la fecha que te interesa y cuántas personas vienen. Te respondemos con disponibilidad y precios.</p>
           <div class="contact-actions">
             <a href="#" class="btn btn-whatsapp js-whatsapp" data-msg="¡Hola! Quiero reservar un tour con Nayeli Tours.">WhatsApp</a>
