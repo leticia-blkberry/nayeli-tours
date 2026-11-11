@@ -1,14 +1,15 @@
-# Nadxheelii Tours
+# Nayeli Tours
 
-Sitio web de **Nadxheelii Tours** — senderismo y exploración consciente de hongos mágicos en San José del Pacífico, Oaxaca.
-Contenido tomado de la página de Facebook: https://www.facebook.com/Nayetours
+Sitio web de **Nayeli Tours** — senderismo, medicina, temazcal y hospedaje en San José del Pacífico, Oaxaca.
+Contenido tomado de la página de Facebook (aparece como *Nadxheelii Tours*): https://www.facebook.com/Nayetours
 
 Sitio estático (HTML + CSS + JS, sin compilación), listo para GitHub Pages.
 
 ```
-index.html        Página única: inicio, experiencia, tours, galería, opiniones, eventos, cuidado, contacto
+index.html        Página única: inicio, experiencia, servicios, galería, opiniones, eventos, cuidado, contacto
 css/styles.css    Estilos
 js/main.js        Configuración de WhatsApp, menú móvil, galería y animaciones
+images/logo.jpg   Logotipo (también logo-160.jpg y apple-touch-icon.png)
 images/galeria/   Fotos de la galería
 ```
 
@@ -25,14 +26,14 @@ images/galeria/   Fotos de la galería
    | `mar-de-nubes.jpg` | Vista del mar de nubes |
    | `bosque.jpg` | Bosque de pinos |
    | `niebla.jpg` | Rayos de luz en la niebla (horizontal) |
-   | `hongo-1.jpg`, `hongo-2.jpg` | Amanitas rojas |
+   | `hongo-1.jpg` | Amanita roja |
+   | `temazcal.jpg` | El temazcal |
    | `sendero.jpg` | Persona caminando en el sendero (vertical) |
    | `hamacas.jpg` | Espacio con hamacas |
    | `cabana.jpg` | Cabaña con el letrero de hongo iluminado |
 
-3. **Logo** — el sitio usa un ícono de hongo provisional; se puede cambiar por el logo real en `index.html` (`.brand-mark`).
-4. **Tours y precios** — los tres tours en la sección `#tours` son una propuesta basada en la página de Facebook; ajustar nombres, duración y precios.
-5. **Eventos** — actualizar la sección `#eventos` cuando haya nuevas fechas.
+3. **Servicios y precios** — los textos de Senderismo, Medicina, Temazcal y Hospedaje (sección `#servicios`) son una propuesta; ajustar descripciones, duración y precios.
+4. **Eventos** — actualizar la sección `#eventos` cuando haya nuevas fechas.
 
 ## Ver localmente
 

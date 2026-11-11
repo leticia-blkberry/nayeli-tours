@@ -6,7 +6,7 @@ const MESSENGER_URL = "https://m.me/Nayetours";
 
 // ===== Enlaces de WhatsApp =====
 document.querySelectorAll(".js-whatsapp").forEach((el) => {
-  const msg = el.dataset.msg || "¡Hola! Quiero información sobre Nadxheelii Tours.";
+  const msg = el.dataset.msg || "¡Hola! Quiero información sobre Nayeli Tours.";
   el.href = WHATSAPP_NUMBER
     ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`
     : MESSENGER_URL;
