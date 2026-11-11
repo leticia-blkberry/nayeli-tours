@@ -41,4 +41,5 @@ python3 -m http.server 8000
 
 ## Publicar en GitHub Pages
 
-Settings → Pages → Deploy from a branch → rama principal, carpeta `/ (root)`.
+Settings → Pages → Deploy from a branch → rama `main`, carpeta `/ (root)`.
+El sitio quedará en https://leticia-blkberry.github.io/nayeli-tours/
