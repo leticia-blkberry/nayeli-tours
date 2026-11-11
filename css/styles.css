@@ -166,7 +166,7 @@ p { margin: 0 0 1em; }
 .hero-art svg { width: 100%; height: 100%; }
 .hero::after {
   content: ""; position: absolute; inset: 0; z-index: -1;
-  background: linear-gradient(180deg, rgba(var(--rgb-green-950), .35) 0%, rgba(var(--rgb-green-950), 0) 40%, rgba(var(--rgb-green-950), .2) 80%, var(--green-950) 100%);
+  background: linear-gradient(180deg, rgba(var(--rgb-green-950), .35) 0%, rgba(var(--rgb-green-950), 0) 40%, rgba(var(--rgb-green-950), 0) 90%, var(--green-950) 100%);
 }
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 3rem; align-items: center; padding: 120px 0 110px; }
 .hero-content { max-width: 720px; }
@@ -202,14 +202,15 @@ p { margin: 0 0 1em; }
 .hero-art .shroom { transform-box: fill-box; transform-origin: 50% 100%; animation: pulse 4.5s ease-in-out infinite; }
 .hero-art .s2 { animation-delay: -1.5s; animation-duration: 5.5s; }
 .hero-art .s3 { animation-delay: -3s; animation-duration: 3.8s; }
-@keyframes pulse { 0%, 100% { opacity: .78; transform: scale(1); } 50% { opacity: 1; transform: scale(1.04); } }
+@keyframes pulse { 0%, 100% { opacity: .8; transform: rotate(-1.5deg) scale(1); } 50% { opacity: 1; transform: rotate(1.5deg) scale(1.04); } }
+.hero-art .tuft { opacity: .9; }
 .hero-art #stars circle { animation: twinkle 3s ease-in-out infinite; }
 @keyframes twinkle { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
 .hero-art .moon-glow { animation: breathe 6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
 @keyframes breathe { 50% { opacity: .65; transform: scale(1.08); } }
 
 @media (max-width: 880px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 2rem; padding-top: 100px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 2rem; padding-top: 100px; padding-bottom: 190px; }
   .hero-logo { order: -1; justify-self: start; width: 140px; }
   .hero-logo::before { inset: -8px; border-radius: 28px; filter: blur(12px); }
   .hero-logo img { border-radius: 20px; }
