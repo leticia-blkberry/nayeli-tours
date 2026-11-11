@@ -1,0 +1,18 @@
+# Nayeli Tours website
+
+Static one-page site (Spanish) for Nayeli Tours, a guide in San José del Pacífico, Oaxaca
+(Facebook page: Nadxheelii Tours, https://www.facebook.com/Nayetours).
+
+## Repository rules
+
+- This site lives **only** in `leticia-blkberry/nayeli-tours`. All work, commits and pushes go here.
+- **Never use the `leticia-blkberry/solar-care` repository** for anything — do not read, change, commit to or push to it, even if it is attached to the session.
+
+## Project notes
+
+- Plain HTML/CSS/JS, no build step; published with GitHub Pages from `main` at https://leticia-blkberry.github.io/nayeli-tours/
+- `index.html` — all sections; `css/styles.css` — dark, glowing "magical" night-forest theme; `js/main.js` — WhatsApp number (`WHATSAPP_NUMBER`), menu, stars, floating spores and cursor sparkles.
+- Brand: name "Nayeli Tours", logo in `images/logo.jpg`. Services: Senderismo, Medicina, Temazcal, Hospedaje.
+- WhatsApp: +52 951 106 7780 (`wa.me/529511067780`).
+- Gallery photos go in `images/galeria/` with the file names listed in `README.md`; missing photos fall back to illustrations.
+- Keep all motion disabled under `prefers-reduced-motion`, and keep the 18+ / wellbeing messaging for the mushroom experiences.
