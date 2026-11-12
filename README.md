@@ -43,3 +43,14 @@ python3 -m http.server 8000
 
 Settings → Pages → Deploy from a branch → rama `main`, carpeta `/ (root)`.
 El sitio quedará en https://leticia-blkberry.github.io/nayeli-tours/
+
+## Información pendiente del cliente (para completar la página)
+
+- Precio, duración, tamaño de grupo y qué incluye cada servicio (sección `#servicios` y la pregunta "¿Cuánto cuesta y qué incluye?").
+- Punto de encuentro y recomendaciones para llegar (pregunta "¿Dónde nos encontramos y cómo llego?").
+- Formas de pago y política de cancelación (se pueden agregar como preguntas nuevas).
+- Fotos reales para la galería.
+- Próximas fechas de ceremonias/eventos (los actuales son de 2025).
+- Más reseñas, y enlaces a Google Maps / TripAdvisor si existen.
+- Confirmar si siguen ofreciendo Hospedaje.
+

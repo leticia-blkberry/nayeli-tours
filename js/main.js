@@ -55,7 +55,7 @@ if ("IntersectionObserver" in window) {
       }),
     { threshold: 0.12 }
   );
-  document.querySelectorAll(".section-head, .pillar, .journey, .tour, .g-item, .review, .event, .care-list li")
+  document.querySelectorAll(".section-head, .pillar, .journey, .faq-item, .tour, .g-item, .review, .event, .care-list li")
     .forEach((el) => { el.classList.add("reveal"); io.observe(el); });
 }
 

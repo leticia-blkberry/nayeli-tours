@@ -22,6 +22,8 @@ Static one-page site (Spanish) for Nadxheelii Tours, a guide in San José del Pa
 - Hero media: `videos/amanecer.mp4` (client's TikTok sunrise clip, trimmed to drop the TikTok end screen, cropped to remove the watermark, muted) with poster `images/amanecer-poster.jpg`; it does not autoplay under reduced motion.
 - Gallery photos go in `images/galeria/` with the file names listed in `README.md`; missing photos fall back to illustrations.
 - Keep all motion disabled under `prefers-reduced-motion`, and keep the 18+ / wellbeing messaging for the mushroom experiences.
+- Section order (decision-first): Hero → Servicios → Experiencia (cards + interactive journey) → Opiniones → Galería → Bienestar → Preguntas frecuentes (`#preguntas`, native `<details>` + FAQPage JSON-LD; keep the JSON-LD in sync with the visible answers) → Eventos → Contacto.
+- FAQ and service copy must not invent facts (prices, durations, meeting point, policies); point to WhatsApp until the client provides them.
 - Footer must always include the credit line "Design by DigitalBlackBerry" (`.credit`).
 
 ## Accessibility and mobile (keep these working)
