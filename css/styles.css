@@ -37,7 +37,8 @@
   --muted: rgba(var(--rgb-white), .74);
   --glass-line: rgba(var(--rgb-cyan), .16);
   --radius: 20px;
-  --serif: "Fraunces", Georgia, serif;
+  /* Tipografía de títulos: Montserrat, la Google Font más parecida a las letras del logo */
+  --serif: "Montserrat", "Inter", system-ui, sans-serif;
   --sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   --magic: linear-gradient(100deg, var(--cyan) 0%, var(--leaf) 30%, var(--cyan) 50%, var(--aqua) 75%, var(--cyan) 100%);
 }
@@ -538,6 +539,23 @@ p { margin: 0 0 1em; }
 }
 .hero-art .wing { transform-box: fill-box; transform-origin: center; animation: flap .55s ease-in-out infinite alternate; }
 @keyframes flap { from { transform: scaleY(1); } to { transform: scaleY(-.55); } }
+
+/* ===== Tipografía del logo =====
+   Títulos en Montserrat, en mayúsculas y con letras espaciadas como
+   "NADXHEELII TOURS"; las palabras destacadas van más ligeras, como "TOURS". */
+h1, h2 { text-transform: uppercase; letter-spacing: .05em; font-weight: 600; line-height: 1.12; }
+h3, h4 { letter-spacing: .01em; }
+.hero h1 { font-size: clamp(2.1rem, 5.2vw, 4.1rem); font-weight: 600; letter-spacing: .04em; }
+.hero h1 .shimmer, .section h2 em { font-style: normal; font-weight: 400; letter-spacing: .08em; }
+.section-head h2 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); }
+.care h2, .contact h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
+.typed {
+  font-style: normal; font-weight: 500; text-transform: uppercase; letter-spacing: .22em;
+  font-size: clamp(.95rem, 1.7vw, 1.2rem); margin: .2em 0 1.1em;
+}
+.steps span { font-style: normal; letter-spacing: .1em; }
+.review p { font-style: italic; font-weight: 400; font-size: 1.15rem; line-height: 1.55; }
+.hero-stats strong { letter-spacing: .03em; }
 
 /* ===== Aparición ===== */
 .reveal { opacity: 0; transform: translateY(26px); filter: blur(6px); transition: opacity .9s ease, transform .9s ease, filter .9s ease, translate .35s ease, box-shadow .35s ease, border-color .35s ease; }
