@@ -153,9 +153,9 @@ def build():
     # Intro animation hooks (see "Intro" in css/styles.css):
     # clouds slide in from the sides, moon fades in, birds fly past,
     # and each landscape layer rises from below in turn.
-    return f'''          <g class="clouds">
-            <g class="intro-from-left"><path class="cloud-drift" d="{clouds2}" fill="{c_cloud2}"/></g>
-            <g class="intro-from-right"><path class="cloud-drift cloud-drift-slow" d="{clouds1}" fill="{c_cloud1}"/></g>
+    return f'''          <g class="clouds" filter="url(#glow)">
+            <g class="intro-from-left"><path class="cloud-drift" d="{clouds2}" fill="#f3eee1" fill-opacity=".10"/></g>
+            <g class="intro-from-right"><path class="cloud-drift cloud-drift-slow" d="{clouds1}" fill="#f3eee1" fill-opacity=".16"/></g>
           </g>
           <g class="moon">
             <circle class="moon-glow" cx="790" cy="125" r="170" fill="url(#moonGlow)"/>
@@ -181,7 +181,7 @@ if __name__ == "__main__":
     p = sys.argv[1]
     s = open(p, encoding="utf-8").read()
     # replace from the cloud layer (or the moon, on a first run) up to the mushrooms
-    start = s.find('          <g class="clouds">')
+    start = s.find('          <g class="clouds"')
     if start == -1:
         start = s.index('          <circle class="moon-glow"')
     end = s.index('          <g class="shrooms-intro" filter="url(#glow)">')
