@@ -162,7 +162,7 @@ def build():
             <circle cx="900" cy="112" r="40" fill="#f3eee1"/>
             <circle cx="913" cy="103" r="8" fill="#0b2d1c" fill-opacity=".12"/><circle cx="890" cy="128" r="5" fill="#0b2d1c" fill-opacity=".12"/>
           </g>
-          <g class="birds-intro" transform="translate(600 150)"><g class="birds">
+          <g class="birds-intro" transform="translate(470 160)"><g class="birds">
 {birds}
           </g></g>
           <g class="rise rise-1"><path d="{far}" fill="{c_far}"/></g>
