@@ -143,7 +143,9 @@ def build():
                     hmul=lambda x: 0.75 + 0.45 * abs(x - 720) / 720)
     row3 = tree_row(-60, 1500, lambda x: 815 + 10 * math.sin(x / 200 + 2), 70, 130, (40, 70),
                     hmul=lambda x: 1.0 + 2.2 * max(0, abs(x - 720) - 380) / 340)
-    giants = " ".join([fir(10, 905, 560, 230), fir(120, 905, 430, 180), fir(1330, 905, 470, 200), fir(1440, 905, 590, 240)])
+    # The four large edge pines were removed at the client's request; they are still
+    # generated (and discarded) so the random sequence, and the ground shape, stay the same.
+    _giants = " ".join([fir(10, 905, 560, 230), fir(120, 905, 430, 180), fir(1330, 905, 470, 200), fir(1440, 905, 590, 240)])
     ground = fmt(ridge([(-40, 855), (360, 845), (720, 860), (1080, 848), (1480, 856)], 5, 30) + [(1480, 900), (-40, 900)])
 
     birds = "\n".join(
@@ -173,7 +175,7 @@ def build():
           <rect class="mist mist-b" x="-200" y="660" width="1840" height="110" fill="url(#mist)"/>
           <g class="rise rise-5"><path d="{row2}" fill="{c_row2}"/></g>
           <g class="rise rise-6"><path d="{row3}" fill="{c_row3}"/></g>
-          <g class="rise rise-7"><path d="{giants} {ground}" fill="{c_front}"/></g>
+          <g class="rise rise-7"><path d="{ground}" fill="{c_front}"/></g>
 '''
 
 
