@@ -634,9 +634,13 @@ p { margin: 0 0 1em; }
 }
 
 /* ===== Pie de página ===== */
-.site-footer { position: relative; color: var(--muted); padding: 4rem 0 6rem; font-size: .95rem; background: linear-gradient(180deg, transparent, rgba(var(--rgb-green-950), .7)); }
-.footer-inner { display: grid; gap: .4rem; text-align: center; }
-.footer-logo { width: 84px; height: 84px; border-radius: 50%; margin: 0 auto .9rem; box-shadow: 0 0 30px rgba(var(--rgb-cyan), .35); }
+.site-footer { position: relative; color: var(--muted); padding: 2rem 0; font-size: .95rem; background: linear-gradient(180deg, transparent, rgba(var(--rgb-green-950), .7)); }
+.footer-inner { display: grid; grid-template-columns: auto auto auto; justify-content: space-between; align-items: center; gap: 1rem 2.5rem; }
+.footer-inner p { margin: 0; }
+.footer-brand { display: flex; align-items: center; gap: .9rem; }
+.footer-links { display: flex; gap: 1.6rem; }
+.footer-legal { text-align: right; }
+.footer-logo { flex: none; width: 56px; height: 56px; border-radius: 50%; box-shadow: 0 0 22px rgba(var(--rgb-cyan), .3); }
 .footer-inner strong { color: var(--white); font-family: var(--serif); }
 .footer-inner a { color: var(--cyan); text-decoration: none; }
 .small { font-size: .82rem; opacity: .75; }
@@ -804,7 +808,7 @@ html.motion-off .hero-art .moon, html.motion-off .hero .shrooms-intro, html.moti
   .nav.open { visibility: visible; transition: transform .35s ease, visibility 0s; }
 }
 
-.credit { font-size: .8rem; letter-spacing: .08em; opacity: .8; margin-top: .6rem; }
+.credit { font-size: .8rem; letter-spacing: .08em; opacity: .8; margin-top: .25rem !important; }
 
 /* Áreas táctiles más altas para enlaces sueltos (≥ 44px en celular) */
 .note a, .footer-inner a, .contact-list a { display: inline-block; padding: .7em 0; margin: -.7em 0; }
@@ -818,3 +822,16 @@ html.motion-off .hero-art .moon, html.motion-off .hero .shrooms-intro, html.moti
 
 /* El atributo hidden siempre gana sobre display de los componentes */
 [hidden] { display: none !important; }
+
+/* Pie de página: en tabletas pasa a dos filas, en celular se apila compacto
+   y deja espacio abajo para los botones flotantes */
+@media (max-width: 1000px) {
+  .footer-inner { grid-template-columns: 1fr auto; }
+  .footer-legal { grid-column: 1 / -1; text-align: left; }
+}
+@media (max-width: 640px) {
+  .site-footer { padding: 1.6rem 0 6.5rem; }
+  .footer-inner { grid-template-columns: 1fr; gap: .9rem; }
+  .footer-links { gap: 1.4rem; }
+}
+@media (min-width: 1200px) { .footer-legal p, .footer-brand p { white-space: nowrap; } .footer-inner { gap: 1rem 2rem; } }
