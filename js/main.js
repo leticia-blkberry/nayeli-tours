@@ -3,6 +3,11 @@
 // Mientras esté vacío, los botones de WhatsApp abren Messenger de la página de Facebook.
 const WHATSAPP_NUMBER = "529511067780";
 const MESSENGER_URL = "https://m.me/Nayetours";
+// Calendario de disponibilidad (Google Calendar, solo consulta).
+// Pega aquí el ID del calendario (ej. "abc123@group.calendar.google.com") o el enlace
+// completo de "Insertar código". Déjalo vacío para ocultar el calendario.
+// En Google Calendar, comparte el calendario como público con "Ver solo libre/ocupado".
+const GOOGLE_CALENDAR = "";
 
 // ===== Enlaces de WhatsApp =====
 document.querySelectorAll(".js-whatsapp").forEach((el) => {
@@ -316,3 +321,101 @@ toggle.addEventListener("click", () => {
   toggle.setAttribute("aria-label", nav.classList.contains("open") ? "Cerrar menú" : "Abrir menú");
   if (nav.classList.contains("open")) setTimeout(() => nav.querySelector("a").focus(), 50);
 });
+
+// ===== Disponibilidad: Google Calendar incrustado (solo lectura, no reserva) =====
+(() => {
+  const box = document.querySelector("[data-calendar]");
+  if (!box || !GOOGLE_CALENDAR.trim()) return;
+  const narrow = window.matchMedia("(max-width: 700px)").matches;
+  let src;
+  if (/^https?:\/\//.test(GOOGLE_CALENDAR)) {
+    const u = new URL(GOOGLE_CALENDAR);
+    if (u.hostname !== "calendar.google.com") return; // solo se acepta Google Calendar
+    src = u;
+  } else {
+    src = new URL("https://calendar.google.com/calendar/embed");
+    src.searchParams.set("src", GOOGLE_CALENDAR.trim());
+  }
+  const set = { ctz: "America/Mexico_City", hl: "es", mode: narrow ? "AGENDA" : "WEEK",
+    showTitle: "0", showPrint: "0", showCalendars: "0", showTz: "0", wkst: "2" };
+  Object.entries(set).forEach(([k, v]) => src.searchParams.set(k, v));
+  box.querySelector("iframe").src = src.toString();
+  box.hidden = false;
+  box.closest(".booking").classList.add("has-calendar");
+})();
+
+// ===== Formulario de solicitud: arma un mensaje de WhatsApp, NO reserva =====
+(() => {
+  const form = document.getElementById("solicitud");
+  if (!form) return;
+  const $ = (id) => document.getElementById(id);
+  const service = $("sol-servicio"), date = $("sol-fecha"), time = $("sol-hora"),
+    people = $("sol-personas"), name = $("sol-nombre"), notes = $("sol-notas"), adult = $("sol-mayor");
+  const adultBox = form.querySelector("[data-adult]");
+  const status = form.querySelector(".form-status");
+
+  // No se pueden pedir fechas pasadas
+  const today = new Date();
+  const iso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  date.min = iso(today);
+
+  const needsAdult = () => /Medicina|paquete/.test(service.value);
+  const syncAdult = () => { adultBox.hidden = !needsAdult(); if (adultBox.hidden) clear(adult); };
+  service.addEventListener("change", syncAdult);
+
+  const errorEl = (f) => $(f.id + "-error");
+  const clear = (f) => { f.removeAttribute("aria-invalid"); errorEl(f).textContent = ""; };
+  const fail = (f, msg) => { f.setAttribute("aria-invalid", "true"); errorEl(f).textContent = msg; };
+
+  const validate = () => {
+    [service, date, time, people, name, adult].forEach(clear);
+    const bad = [];
+    if (!service.value) { fail(service, "Elige el servicio que te interesa."); bad.push(service); }
+    if (!date.value) { fail(date, "Elige la fecha que prefieres."); bad.push(date); }
+    else if (date.value < date.min) { fail(date, "Elige una fecha de hoy en adelante."); bad.push(date); }
+    if (!time.value) { fail(time, "Elige un horario (o «Soy flexible»)."); bad.push(time); }
+    const n = Number(people.value);
+    if (!Number.isInteger(n) || n < 1 || n > 30) { fail(people, "Escribe un número de personas entre 1 y 30."); bad.push(people); }
+    if (!name.value.trim()) { fail(name, "Escribe tu nombre."); bad.push(name); }
+    if (needsAdult() && !adult.checked) { fail(adult, "Para la experiencia con hongos todas las personas deben ser mayores de 18 años."); bad.push(adult); }
+    return bad;
+  };
+  // Al corregir un campo, quitar su error
+  [service, date, time, people, name, adult].forEach((f) =>
+    f.addEventListener(f.type === "checkbox" || f.tagName === "SELECT" ? "change" : "input", () => { if (f.getAttribute("aria-invalid")) clear(f); }));
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const bad = validate();
+    if (bad.length) {
+      status.textContent = bad.length === 1 ? "Revisa el campo marcado." : `Revisa los ${bad.length} campos marcados.`;
+      bad[0].focus();
+      return;
+    }
+    const [y, m, d] = date.value.split("-").map(Number);
+    const fecha = new Date(y, m - 1, d).toLocaleDateString("es-MX", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    const lines = [
+      "¡Hola! Quiero *solicitar* una fecha (entiendo que aún no está confirmada):",
+      `• Servicio: ${service.value}`,
+      `• Fecha: ${fecha}`,
+      `• Horario: ${time.value}`,
+      `• Personas: ${people.value}`,
+      `• Nombre: ${name.value.trim()}`,
+    ];
+    if (notes.value.trim()) lines.push(`• Comentarios: ${notes.value.trim()}`);
+    if (needsAdult()) lines.push("• Todas las personas son mayores de 18 años.");
+    lines.push("", "Quedo pendiente de su confirmación. ¡Gracias!");
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
+    const win = window.open(url, "_blank");
+    if (win) win.opener = null;
+    status.textContent = win
+      ? "Abrimos WhatsApp con tu solicitud. Envía el mensaje para que lo recibamos. Tu fecha queda confirmada solo cuando te respondamos."
+      : "";
+    if (!win) {
+      status.innerHTML = "";
+      const a = document.createElement("a");
+      a.href = url; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Abrir WhatsApp con tu solicitud";
+      status.append("Tu navegador bloqueó la ventana. ", a, ". Tu fecha queda confirmada solo cuando te respondamos.");
+    }
+  });
+})();

@@ -34,7 +34,7 @@
           <a href="#galeria">Galería</a>
           <a href="#preguntas">Preguntas</a>
           <a href="#contacto">Contacto</a>
-          <a href="#contacto" class="btn btn-sm btn-whatsapp js-whatsapp" data-msg="¡Hola! Me interesa reservar un tour con Nadxheelii Tours.">Reservar</a>
+          <a href="#reservar" class="btn btn-sm btn-whatsapp">Reservar</a>
         </div>
       </nav>
       <a href="#top" class="brand" aria-label="Nadxheelii Tours, inicio">
@@ -532,6 +532,100 @@
           </article>
         </div>
         <p class="note">¿Quieres enterarte del próximo evento? <a href="#contacto" class="js-whatsapp" data-msg="¡Hola! Avísenme del próximo evento de Nadxheelii Tours.">Avísame por WhatsApp</a></p>
+      </div>
+    </section>
+
+    <!-- RESERVAR -->
+    <section class="section section-dark" id="reservar" aria-labelledby="reservar-titulo">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">Reservaciones</p>
+          <h2 id="reservar-titulo">Solicita tu <em>fecha</em></h2>
+          <p>Elige el servicio, la fecha y el horario que prefieres. Te respondemos por WhatsApp con la disponibilidad.</p>
+        </header>
+
+        <div class="request-notice" role="note">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v6M12 16.5v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+          <p><strong>Esto es una solicitud, no una reservación.</strong> Enviar el formulario no aparta tu lugar: tu fecha queda confirmada únicamente cuando te respondamos por WhatsApp.</p>
+        </div>
+
+        <div class="booking">
+          <div class="availability" data-calendar hidden>
+            <h3 class="availability-title">Disponibilidad</h3>
+            <p class="availability-help">Los espacios marcados como <strong>ocupado</strong> no están disponibles. Los demás horarios se pueden solicitar y te confirmamos por WhatsApp.</p>
+            <div class="availability-frame">
+              <iframe title="Calendario de disponibilidad de Nadxheelii Tours (solo consulta)" loading="lazy"></iframe>
+            </div>
+          </div>
+
+          <form class="request-form" id="solicitud" novalidate aria-describedby="solicitud-nota">
+            <p class="form-required" id="solicitud-nota">Los campos con <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> son obligatorios.</p>
+
+            <div class="field">
+              <label for="sol-servicio">Servicio <span aria-hidden="true">*</span></label>
+              <select id="sol-servicio" name="servicio" required aria-describedby="sol-servicio-error">
+                <option value="">Elige un servicio</option>
+                <option>Senderismo</option>
+                <option>Medicina con hongos</option>
+                <option>Temazcal</option>
+                <option>Hospedaje</option>
+                <option>Varios servicios / paquete</option>
+              </select>
+              <p class="field-error" id="sol-servicio-error"></p>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="sol-fecha">Fecha que prefieres <span aria-hidden="true">*</span></label>
+                <input id="sol-fecha" name="fecha" type="date" required aria-describedby="sol-fecha-error">
+                <p class="field-error" id="sol-fecha-error"></p>
+              </div>
+              <div class="field">
+                <label for="sol-hora">Horario que prefieres <span aria-hidden="true">*</span></label>
+                <select id="sol-hora" name="hora" required aria-describedby="sol-hora-error">
+                  <option value="">Elige un horario</option>
+                  <option>Mañana</option>
+                  <option>Mediodía</option>
+                  <option>Tarde</option>
+                  <option>Atardecer</option>
+                  <option>Soy flexible</option>
+                </select>
+                <p class="field-error" id="sol-hora-error"></p>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="sol-personas">Número de personas <span aria-hidden="true">*</span></label>
+                <input id="sol-personas" name="personas" type="number" inputmode="numeric" min="1" max="30" value="1" required aria-describedby="sol-personas-error">
+                <p class="field-error" id="sol-personas-error"></p>
+              </div>
+              <div class="field">
+                <label for="sol-nombre">Tu nombre <span aria-hidden="true">*</span></label>
+                <input id="sol-nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="sol-nombre-error">
+                <p class="field-error" id="sol-nombre-error"></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="sol-notas">Comentarios <span class="optional">(opcional)</span></label>
+              <textarea id="sol-notas" name="notas" rows="3" aria-describedby="sol-notas-ayuda"></textarea>
+              <p class="field-help" id="sol-notas-ayuda">Por ejemplo: otra fecha posible, si es tu primera vez o alguna necesidad especial.</p>
+            </div>
+
+            <div class="field field-check" data-adult hidden>
+              <input id="sol-mayor" name="mayor" type="checkbox" aria-describedby="sol-mayor-error">
+              <label for="sol-mayor">Confirmo que todas las personas son mayores de 18 años. <span aria-hidden="true">*</span></label>
+              <p class="field-error" id="sol-mayor-error"></p>
+            </div>
+
+            <button class="btn btn-whatsapp request-submit" type="submit">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+              Enviar solicitud por WhatsApp
+            </button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
       </div>
     </section>
 

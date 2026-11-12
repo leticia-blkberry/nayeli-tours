@@ -24,6 +24,8 @@ Static one-page site (Spanish) for Nadxheelii Tours, a guide in San José del Pa
 - Keep all motion disabled under `prefers-reduced-motion`, and keep the 18+ / wellbeing messaging for the mushroom experiences.
 - Section order (decision-first): Hero → Servicios → Experiencia (cards + interactive journey) → Opiniones → Galería → Bienestar → Preguntas frecuentes (`#preguntas`, native `<details>` + FAQPage JSON-LD; keep the JSON-LD in sync with the visible answers) → Eventos → Contacto.
 - FAQ and service copy must not invent facts (prices, durations, meeting point, policies); point to WhatsApp until the client provides them.
+- Reservations are **requests only**: `#reservar` form validates and opens WhatsApp with a message marked as an unconfirmed request; it never books. Optional read-only Google Calendar (free/busy) embed via `GOOGLE_CALENDAR` in `js/main.js` (hidden while empty). Never use Google appointment schedules / booking pages or anything that lets visitors book directly.
+- Section order now ends: … Eventos → Solicita tu fecha (`#reservar`) → Contacto; the header "Reservar" button goes to `#reservar`.
 - Footer must always include the credit line "Design by DigitalBlackBerry" (`.credit`).
 
 ## Accessibility and mobile (keep these working)

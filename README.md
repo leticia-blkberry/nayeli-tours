@@ -54,3 +54,20 @@ El sitio quedará en https://leticia-blkberry.github.io/nayeli-tours/
 - Más reseñas, y enlaces a Google Maps / TripAdvisor si existen.
 - Confirmar si siguen ofreciendo Hospedaje.
 
+## Calendario de disponibilidad (Google Calendar)
+
+La sección **Solicita tu fecha** (`#reservar`) **no hace reservaciones**: el formulario solo arma un
+mensaje de WhatsApp marcado como solicitud, y la fecha se confirma únicamente cuando el negocio responde.
+El calendario es solo de consulta para que el visitante vea qué horarios están ocupados.
+
+Para mostrarlo:
+
+1. En Google Calendar (computadora), crea un calendario aparte, por ejemplo "Disponibilidad Nadxheelii",
+   y anota ahí los horarios ocupados.
+2. Configuración del calendario → **Permisos de acceso** → activa **Hacer público** y elige
+   **Ver solo libre/ocupado (ocultar detalles)**. Así nadie ve nombres ni datos de clientes.
+3. En **Integrar el calendario**, copia el **ID del calendario** (termina en `@group.calendar.google.com`).
+4. Pégalo en `js/main.js` en `const GOOGLE_CALENDAR = "";` y publica.
+
+No uses las "Páginas de reserva / Agenda de citas" de Google: esas sí permiten reservar directamente.
+
