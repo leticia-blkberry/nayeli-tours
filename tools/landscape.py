@@ -184,7 +184,7 @@ if __name__ == "__main__":
     start = s.find('          <g class="clouds"')
     if start == -1:
         start = s.index('          <circle class="moon-glow"')
-    end = s.index('          <g class="shrooms-intro" filter="url(#glow)">')
+    end = s.index('          <!-- /paisaje -->')
     s = s[:start] + build() + s[end:]
     # sky: flat green night like the reference, aurora keeps the magic
     a = s.index('<linearGradient id="sky"')
