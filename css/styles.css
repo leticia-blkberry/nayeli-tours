@@ -273,6 +273,7 @@ p { margin: 0 0 1em; }
 .pillar:hover .pillar-icon { box-shadow: 0 0 0 4px var(--green-800), 0 0 0 5.5px var(--cyan), 0 0 36px rgba(var(--rgb-cyan), .45); }
 .pillar-icon svg { width: 60px; height: 60px; overflow: visible; }
 .pillar-icon-img { width: 66px; height: 66px; }
+.pillar-icon-img-wide { width: 82px; height: 82px; margin-top: -4px; }
 .pillar h3 { font-size: 1.45rem; color: var(--white); }
 .pillar p { color: var(--muted); margin: 0; }
 
