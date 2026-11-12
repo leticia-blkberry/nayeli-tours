@@ -133,7 +133,7 @@ p { margin: 0 0 1em; }
 /* Logo centrado, sin texto */
 .brand { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: block; line-height: 0; z-index: 2; transition: transform .3s; }
 .brand:hover { transform: translate(-50%, -50%) scale(1.05); }
-.brand-mark { width: 64px; height: 64px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(var(--rgb-cyan), .4), 0 0 18px rgba(var(--rgb-cyan), .35); }
+.brand-mark { width: 70px; height: 70px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(var(--rgb-cyan), .4), 0 0 18px rgba(var(--rgb-cyan), .35); }
 .nav { display: flex; align-items: center; justify-content: space-between; width: 100%; }
 .nav-group { display: flex; align-items: center; gap: 1.6rem; }
 .nav-left { padding-right: 56px; }
@@ -149,7 +149,7 @@ p { margin: 0 0 1em; }
 @media (max-width: 980px) {
   .nav-toggle { display: block; }
   .header-inner { height: 76px; }
-  .brand-mark { width: 56px; height: 56px; }
+  .brand-mark { width: 62px; height: 62px; }
   .nav-group { flex-direction: column; align-items: center; gap: 1.4rem; padding: 0; }
   .nav { align-items: center; }
   .nav {
