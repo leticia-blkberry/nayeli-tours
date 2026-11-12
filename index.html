@@ -279,12 +279,70 @@
           </article>
         </div>
 
-        <ol class="steps">
-          <li><span>01</span><h4>Llegada y bienvenida</h4><p>Te recibimos en San José del Pacífico y platicamos sobre tu intención y expectativas.</p></li>
-          <li><span>02</span><h4>Caminata al bosque</h4><p>Nos adentramos en los senderos, a tu ritmo, conectando con el paisaje.</p></li>
-          <li><span>03</span><h4>Experiencia guiada</h4><p>Un espacio cuidado para la introspección, siempre acompañado por tu guía.</p></li>
-          <li><span>04</span><h4>Integración</h4><p>Cerramos compartiendo, descansando y contemplando el atardecer.</p></li>
-        </ol>
+        <div class="journey" data-journey>
+          <div class="journey-track" role="tablist" aria-label="Etapas de la experiencia">
+            <span class="journey-line" aria-hidden="true"><span class="journey-fill"></span></span>
+            <button class="journey-stop is-active" type="button" role="tab" id="paso-1-tab" aria-controls="paso-1" aria-selected="true" tabindex="0">
+              <span class="journey-num">01</span>
+              <span class="journey-label">Llegada y bienvenida</span>
+            </button>
+            <button class="journey-stop" type="button" role="tab" id="paso-2-tab" aria-controls="paso-2" aria-selected="false" tabindex="-1">
+              <span class="journey-num">02</span>
+              <span class="journey-label">Caminata al bosque</span>
+            </button>
+            <button class="journey-stop" type="button" role="tab" id="paso-3-tab" aria-controls="paso-3" aria-selected="false" tabindex="-1">
+              <span class="journey-num">03</span>
+              <span class="journey-label">Experiencia guiada</span>
+            </button>
+            <button class="journey-stop" type="button" role="tab" id="paso-4-tab" aria-controls="paso-4" aria-selected="false" tabindex="-1">
+              <span class="journey-num">04</span>
+              <span class="journey-label">Integración</span>
+            </button>
+          </div>
+          <div class="journey-panels">
+          <div class="journey-panel is-active" role="tabpanel" id="paso-1" aria-labelledby="paso-1-tab">
+            <div class="journey-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 56V30a18 18 0 0 1 36 0v26"/><path d="M24 56V36a8 8 0 0 1 16 0v20"/><path d="M6 56h52"/><path d="M26 10a10 10 0 0 0 12 0" stroke-width="3"/></svg></div>
+            <div class="journey-text">
+              <p class="journey-kicker">Paso 01 de 04</p>
+              <h4>Llegada y bienvenida</h4>
+              <p>Te recibimos en San José del Pacífico y platicamos sobre tu intención y expectativas.</p>
+              <p class="journey-more">Es el momento de resolver tus dudas y contarnos qué buscas; a partir de ahí preparamos la experiencia contigo.</p>
+            </div>
+          </div>
+          <div class="journey-panel" role="tabpanel" id="paso-2" aria-labelledby="paso-2-tab">
+            <div class="journey-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 8 8 30h7L5 46h30L25 30h7z" fill="currentColor" stroke-width="2"/><path d="M20 46v8"/><path d="M46 18l-9 16h5l-7 12h22l-7-12h5z" fill="currentColor" stroke-width="2"/><path d="M46 46v8"/><path d="M28 60c6-4 14-4 20-2s10 0 12-2" stroke-width="2.6"/></svg></div>
+            <div class="journey-text">
+              <p class="journey-kicker">Paso 02 de 04</p>
+              <h4>Caminata al bosque</h4>
+              <p>Nos adentramos en los senderos, a tu ritmo, conectando con el paisaje.</p>
+              <p class="journey-more">Caminamos entre pinos, musgo y neblina, con pausas en los miradores. Es apta para todos los niveles.</p>
+            </div>
+          </div>
+          <div class="journey-panel" role="tabpanel" id="paso-3" aria-labelledby="paso-3-tab">
+            <div class="journey-art" aria-hidden="true"><img src="images/icon-hongo.png" alt="" width="160" height="160"></div>
+            <div class="journey-text">
+              <p class="journey-kicker">Paso 03 de 04</p>
+              <h4>Experiencia guiada</h4>
+              <p>Un espacio cuidado para la introspección, siempre acompañado por tu guía.</p>
+              <p class="journey-more">Con intención y respeto, en un lugar tranquilo del bosque. Tu guía permanece contigo de principio a fin.</p>
+            </div>
+          </div>
+          <div class="journey-panel" role="tabpanel" id="paso-4" aria-labelledby="paso-4-tab">
+            <div class="journey-art" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 38a16 16 0 0 1 32 0"/><path d="M32 10v6M12 20l4 4M52 20l-4 4M4 38h6M54 38h6"/><path d="M6 46c6-4 10 4 16 0s10 4 16 0 10 4 16 0 6 2 6 2" stroke-width="3"/><path d="M12 55c6-3 10 3 16 0s10 3 16 0 8 2 8 2" stroke-width="3"/></svg></div>
+            <div class="journey-text">
+              <p class="journey-kicker">Paso 04 de 04</p>
+              <h4>Integración</h4>
+              <p>Cerramos compartiendo, descansando y contemplando el atardecer.</p>
+              <p class="journey-more">Hablamos de lo vivido, descansamos y, si el cielo lo permite, vemos caer el sol sobre el mar de nubes.</p>
+            </div>
+          </div>
+          </div>
+          <div class="journey-controls">
+            <button class="journey-arrow" type="button" data-dir="-1" aria-label="Paso anterior">&#8592;</button>
+            <span class="journey-progress" aria-hidden="true"><span class="journey-timer"></span></span>
+            <button class="journey-arrow" type="button" data-dir="1" aria-label="Paso siguiente">&#8594;</button>
+          </div>
+        </div>
       </div>
     </section>
 

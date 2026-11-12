@@ -55,7 +55,7 @@ if ("IntersectionObserver" in window) {
       }),
     { threshold: 0.12 }
   );
-  document.querySelectorAll(".section-head, .pillar, .steps li, .tour, .g-item, .review, .event, .care-list li")
+  document.querySelectorAll(".section-head, .pillar, .journey, .tour, .g-item, .review, .event, .care-list li")
     .forEach((el) => { el.classList.add("reveal"); io.observe(el); });
 }
 
@@ -194,3 +194,58 @@ if (heroVideo && reduceMotion) {
   heroVideo.pause();
   heroVideo.controls = true;
 }
+
+// ===== Recorrido interactivo: Llegada → Caminata → Experiencia → Integración =====
+document.querySelectorAll("[data-journey]").forEach((root) => {
+  const stops = [...root.querySelectorAll(".journey-stop")];
+  const panels = [...root.querySelectorAll(".journey-panel")];
+  const timer = root.querySelector(".journey-timer");
+  const last = stops.length - 1;
+  let current = 0;
+
+  const show = (i, focus) => {
+    current = (i + stops.length) % stops.length;
+    stops.forEach((s, k) => {
+      const on = k === current;
+      s.classList.toggle("is-active", on);
+      s.classList.toggle("is-done", k < current);
+      s.setAttribute("aria-selected", String(on));
+      s.tabIndex = on ? 0 : -1;
+    });
+    panels.forEach((p, k) => p.classList.toggle("is-active", k === current));
+    root.style.setProperty("--fill", `${(current / last) * 100}%`);
+    if (focus) stops[current].focus();
+    // restart the countdown bar
+    if (timer) { timer.style.animation = "none"; void timer.offsetWidth; timer.style.animation = ""; }
+  };
+
+  // Autoplay (never with reduced motion); stops for good once the visitor takes over
+  let autoplay = !reduceMotion;
+  const stopAutoplay = () => { autoplay = false; root.classList.remove("is-playing"); };
+  if (timer) timer.addEventListener("animationend", () => { if (autoplay) show(current + 1); });
+
+  stops.forEach((s, k) => s.addEventListener("click", () => { stopAutoplay(); show(k); }));
+  root.querySelectorAll(".journey-arrow").forEach((b) =>
+    b.addEventListener("click", () => { stopAutoplay(); show(current + Number(b.dataset.dir)); }));
+  root.querySelector(".journey-track").addEventListener("keydown", (e) => {
+    const k = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+    if (e.key === "Home" || e.key === "End") { e.preventDefault(); stopAutoplay(); show(e.key === "Home" ? 0 : last, true); return; }
+    if (!k) return;
+    e.preventDefault(); stopAutoplay(); show(current + k, true);
+  });
+
+  // Pause while hovered or focused
+  const pause = (on) => root.classList.toggle("is-paused", on);
+  root.addEventListener("mouseenter", () => pause(true));
+  root.addEventListener("mouseleave", () => pause(root.contains(document.activeElement)));
+  root.addEventListener("focusin", () => pause(true));
+  root.addEventListener("focusout", (e) => { if (!root.contains(e.relatedTarget)) pause(false); });
+
+  // Only run while the section is on screen
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([en]) => root.classList.toggle("is-playing", autoplay && en.isIntersecting), { threshold: 0.4 }).observe(root);
+  } else if (autoplay) root.classList.add("is-playing");
+
+  root.classList.add("is-ready");
+  show(0);
+});

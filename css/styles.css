@@ -348,6 +348,95 @@ p { margin: 0 0 1em; }
 .tour-meta li { font-size: .78rem; padding: .3em .85em; border-radius: 999px; background: rgba(var(--rgb-cyan), .08); border: 1px solid rgba(var(--rgb-cyan), .22); color: var(--white); }
 .tour .btn { margin-top: auto; align-self: flex-start; }
 
+/* ===== Recorrido interactivo (Llegada → Integración) ===== */
+.journey { margin-top: 4.5rem; }
+.journey-track { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem; }
+.journey-line {
+  position: absolute; top: 27px; left: 12.5%; right: 12.5%; height: 2px;
+  background: rgba(var(--rgb-cyan), .18); border-radius: 2px; pointer-events: none;
+}
+.journey-fill {
+  display: block; height: 100%; width: var(--fill, 0%); background: var(--cyan); border-radius: 2px;
+  box-shadow: 0 0 12px rgba(var(--rgb-cyan), .7); transition: width .7s cubic-bezier(.4, 0, .2, 1);
+}
+.journey-stop {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: .8rem;
+  padding: 0 .25rem .4rem; background: none; border: 0; color: var(--muted); cursor: pointer;
+  font: inherit; text-align: center;
+}
+.journey-num {
+  width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--serif); font-weight: 600; letter-spacing: .08em; font-size: 1rem;
+  color: var(--cyan); background: var(--green-900); border: 1.5px solid rgba(var(--rgb-cyan), .35);
+  transition: background .35s, color .35s, border-color .35s, box-shadow .35s, transform .35s;
+}
+.journey-label { font-family: var(--serif); font-size: .95rem; font-weight: 500; letter-spacing: .02em; line-height: 1.3; transition: color .3s; overflow-wrap: anywhere; hyphens: auto; }
+.journey-stop:hover .journey-num { border-color: var(--cyan); transform: translateY(-3px); box-shadow: 0 0 18px rgba(var(--rgb-cyan), .3); }
+.journey-stop:hover .journey-label { color: var(--white); }
+.journey-stop.is-done .journey-num { background: var(--green-700); border-color: rgba(var(--rgb-cyan), .7); }
+.journey-stop.is-active .journey-num {
+  background: var(--cyan); color: var(--green-800); border-color: var(--cyan);
+  box-shadow: 0 0 0 6px rgba(var(--rgb-cyan), .12), 0 0 28px rgba(var(--rgb-cyan), .55); transform: scale(1.08);
+}
+.journey-stop.is-active .journey-label { color: var(--white); }
+.journey-stop:focus-visible { outline: none; }
+.journey-stop:focus-visible .journey-num { outline: 2px solid var(--cyan); outline-offset: 4px; }
+
+.journey-panels {
+  display: grid; margin-top: 2.2rem; border-radius: var(--radius); overflow: hidden;
+  background: linear-gradient(160deg, rgba(var(--rgb-white), .07), rgba(var(--rgb-white), .02));
+  border: 1px solid var(--glass-line); backdrop-filter: blur(8px);
+}
+.journey-panel {
+  grid-area: 1 / 1; display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center;
+  padding: 2rem 2.2rem;
+}
+.journey.is-ready .journey-panel {
+  opacity: 0; visibility: hidden; transform: translateX(24px);
+  transition: opacity .5s ease, transform .5s ease, visibility 0s linear .5s;
+}
+.journey.is-ready .journey-panel.is-active { opacity: 1; visibility: visible; transform: none; transition: opacity .5s ease .1s, transform .5s ease .1s; }
+.journey-art {
+  width: 112px; height: 112px; border-radius: 50%; display: grid; place-items: center; color: var(--cyan);
+  background: var(--green-800); box-shadow: 0 0 0 4px var(--green-800), 0 0 0 5.5px var(--cyan), 0 0 30px rgba(var(--rgb-cyan), .25);
+}
+.journey-art svg, .journey-art img { width: 62px; height: 62px; }
+.journey-art img { width: 72px; height: 72px; }
+.journey-kicker { font-size: .74rem; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan); font-weight: 600; margin-bottom: .4rem; }
+.journey-text h4 { font-size: 1.45rem; color: var(--white); margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .05em; }
+.journey-text p { color: var(--muted); margin: 0 0 .5rem; max-width: 60ch; }
+.journey-text p.journey-kicker { color: var(--cyan); margin-bottom: .4rem; }
+.journey-text .journey-more { color: rgba(var(--rgb-white), .62); margin: 0; }
+
+.journey-controls { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.4rem; }
+.journey-arrow {
+  width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(var(--rgb-cyan), .35);
+  background: rgba(var(--rgb-white), .04); color: var(--cyan); font-size: 1.15rem; cursor: pointer;
+  transition: border-color .25s, background .25s, box-shadow .25s;
+}
+.journey-arrow:hover, .journey-arrow:focus-visible { border-color: var(--cyan); background: rgba(var(--rgb-cyan), .1); box-shadow: 0 0 18px rgba(var(--rgb-cyan), .3); outline: none; }
+.journey-progress { width: 120px; height: 3px; border-radius: 3px; background: rgba(var(--rgb-cyan), .15); overflow: hidden; }
+.journey-timer { display: block; height: 100%; width: 0; background: var(--cyan); }
+.journey.is-playing .journey-timer { animation: journey-timer 7s linear forwards; }
+.journey.is-playing.is-paused .journey-timer { animation-play-state: paused; }
+@keyframes journey-timer { from { width: 0; } to { width: 100%; } }
+.journey:not(.is-ready) .journey-controls { display: none; }
+
+@media (max-width: 700px) {
+  .journey-num { width: 46px; height: 46px; font-size: .9rem; }
+  .journey-line { top: 22px; }
+  .journey-label { font-size: .74rem; }
+  .journey-panel { grid-template-columns: 1fr; gap: 1.2rem; padding: 1.6rem 1.4rem; justify-items: start; }
+  .journey-art { width: 84px; height: 84px; }
+  .journey-art svg { width: 48px; height: 48px; }
+  .journey-art img { width: 56px; height: 56px; }
+  .journey-text h4 { font-size: 1.2rem; }
+}
+@media (max-width: 380px) {
+  /* En pantallas muy angostas el título va en el panel; la etiqueta queda para lectores de pantalla */
+  .journey-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+
 /* ===== Galería ===== */
 .gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; grid-auto-flow: dense; gap: 14px; }
 .g-item {
