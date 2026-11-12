@@ -63,6 +63,9 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 // ===== Magia: estrellas, esporas brillantes y destellos del cursor =====
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// Botón "Pausar animaciones": cada animación se registra aquí para detenerse/reanudarse
+let motionPaused = false;
+const motionHooks = [];
 
 // Estrellas en el cielo del hero
 const starsGroup = document.getElementById("stars");
@@ -117,7 +120,7 @@ if (canvas && !reduceMotion) {
 
   let t = 0, running = true;
   const tick = () => {
-    if (!running) return;
+    if (!running || motionPaused) return;
     t += 0.016;
     ctx.clearRect(0, 0, w, h);
     ctx.globalCompositeOperation = "lighter";
@@ -157,8 +160,9 @@ if (canvas && !reduceMotion) {
 
   document.addEventListener("visibilitychange", () => {
     running = !document.hidden;
-    if (running) requestAnimationFrame(tick);
+    if (running && !motionPaused) requestAnimationFrame(tick);
   });
+  motionHooks.push((paused) => { if (paused) ctx.clearRect(0, 0, w, h); else if (running) requestAnimationFrame(tick); });
   window.addEventListener("resize", resize);
   resize();
   requestAnimationFrame(tick);
@@ -169,22 +173,32 @@ const typed = document.querySelector(".typed");
 if (typed && !reduceMotion) {
   const out = typed.querySelector(".typed-text");
   const words = typed.dataset.words.split("|");
-  typed.setAttribute("aria-label", words.join(" "));
+  // Los lectores de pantalla leen la lista completa; el texto animado queda oculto para ellos
+  const sr = document.createElement("span");
+  sr.className = "sr-only";
+  sr.textContent = words.join(" ");
+  typed.prepend(sr);
   out.setAttribute("aria-hidden", "true");
   out.textContent = "";
-  let w = 0, i = 0, deleting = false;
+  let w = 0, i = 0, deleting = false, timerId;
+  const later = (fn, ms) => { timerId = setTimeout(fn, ms); };
+  motionHooks.push((paused) => {
+    clearTimeout(timerId);
+    if (paused) { out.textContent = words[w]; i = words[w].length; deleting = true; }
+    else later(step, 1200);
+  });
   const step = () => {
     const word = words[w];
     if (!deleting) {
       out.textContent = word.slice(0, ++i);
-      if (i === word.length) { deleting = true; return setTimeout(step, 1800); }
-      return setTimeout(step, 85);
+      if (i === word.length) { deleting = true; return later(step, 1800); }
+      return later(step, 85);
     }
     out.textContent = word.slice(0, --i);
-    if (i === 0) { deleting = false; w = (w + 1) % words.length; return setTimeout(step, 350); }
-    setTimeout(step, 40);
+    if (i === 0) { deleting = false; w = (w + 1) % words.length; return later(step, 350); }
+    later(step, 40);
   };
-  setTimeout(step, 2000);
+  later(step, 2000);
 }
 
 // ===== Video de la portada: sin reproducción automática con movimiento reducido =====
@@ -248,4 +262,57 @@ document.querySelectorAll("[data-journey]").forEach((root) => {
 
   root.classList.add("is-ready");
   show(0);
+});
+
+// ===== Video: también se detiene con el botón de pausa =====
+if (heroVideo && !reduceMotion) {
+  motionHooks.push((paused) => { if (paused) heroVideo.pause(); else heroVideo.play().catch(() => {}); });
+}
+
+// ===== Botón "Pausar animaciones" (WCAG 2.2.2): detiene video, partículas, texto y animaciones =====
+const motionBtn = document.querySelector(".motion-toggle");
+if (motionBtn && !reduceMotion) {
+  const applyMotion = (paused) => {
+    motionPaused = paused;
+    document.documentElement.classList.toggle("motion-off", paused);
+    motionBtn.setAttribute("aria-pressed", String(paused));
+    const label = paused ? "Reanudar animaciones" : "Pausar animaciones";
+    motionBtn.setAttribute("aria-label", label);
+    motionBtn.title = label;
+    motionHooks.forEach((fn) => fn(paused));
+  };
+  let saved = false;
+  try { saved = localStorage.getItem("nt-motion-off") === "1"; } catch (e) {}
+  if (saved) applyMotion(true);
+  motionBtn.addEventListener("click", () => {
+    const paused = !motionPaused;
+    applyMotion(paused);
+    try { localStorage.setItem("nt-motion-off", paused ? "1" : "0"); } catch (e) {}
+  });
+}
+
+// ===== Enlaces que abren otra pestaña: avisar a los lectores de pantalla =====
+document.querySelectorAll('a[target="_blank"]').forEach((a) => {
+  if (a.querySelector(".sr-only")) return;
+  const note = document.createElement("span");
+  note.className = "sr-only";
+  note.textContent = " (se abre en una pestaña nueva)";
+  a.append(note);
+  if (a.hasAttribute("aria-label")) a.setAttribute("aria-label", a.getAttribute("aria-label") + " (se abre en una pestaña nueva)");
+});
+
+// ===== Menú móvil: Escape para cerrar y foco ordenado =====
+const closeNav = (returnFocus) => {
+  if (!nav.classList.contains("open")) return;
+  nav.classList.remove("open");
+  toggle.setAttribute("aria-expanded", "false");
+  document.body.classList.remove("nav-open");
+  toggle.setAttribute("aria-label", "Abrir menú");
+  if (returnFocus) toggle.focus();
+};
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeNav(true); });
+nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => toggle.setAttribute("aria-label", "Abrir menú")));
+toggle.addEventListener("click", () => {
+  toggle.setAttribute("aria-label", nav.classList.contains("open") ? "Cerrar menú" : "Abrir menú");
+  if (nav.classList.contains("open")) setTimeout(() => nav.querySelector("a").focus(), 50);
 });

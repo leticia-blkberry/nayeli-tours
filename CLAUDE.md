@@ -22,3 +22,13 @@ Static one-page site (Spanish) for Nadxheelii Tours, a guide in San José del Pa
 - Hero media: `videos/amanecer.mp4` (client's TikTok sunrise clip, trimmed to drop the TikTok end screen, cropped to remove the watermark, muted) with poster `images/amanecer-poster.jpg`; it does not autoplay under reduced motion.
 - Gallery photos go in `images/galeria/` with the file names listed in `README.md`; missing photos fall back to illustrations.
 - Keep all motion disabled under `prefers-reduced-motion`, and keep the 18+ / wellbeing messaging for the mushroom experiences.
+- Footer must always include the credit line "Design by DigitalBlackBerry" (`.credit`).
+
+## Accessibility and mobile (keep these working)
+
+- Target WCAG 2.2 AA. Check with axe-core (zero violations) plus keyboard, screen-reader and 320px-wide checks after changes.
+- Skip link "Saltar al contenido" → `main#contenido`; visible `:focus-visible` outline on every control.
+- "Pausar animaciones" button (`.motion-toggle`, WCAG 2.2.2) pauses video, spores, typewriter, journey autoplay and all CSS animations; new animations must register with `motionHooks` in `js/main.js` or be CSS animations. The hero intro must skip to its final state when paused (`html.motion-off` rule).
+- Closed mobile menu is `visibility: hidden` (not tabbable); Escape closes it. Links with `target="_blank"` get a hidden "(se abre en una pestaña nueva)" note automatically.
+- No horizontal scrolling at 320px; text ≥ 12px; tap targets ≥ 44px for standalone links and buttons.
+
