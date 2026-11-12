@@ -1,46 +1,45 @@
 /* =========================================================
-   Nayeli Tours — paleta tomada SOLO del logotipo:
-   verde olivo #44690a (y sus tonos oscuros), blanco,
-   y el degradado de los hongos: violeta → índigo → azul →
-   celeste → cian → aqua → verde hoja.
+   Nadxheelii Tours — paleta tomada SOLO del logotipo:
+   verde bosque #0b2d1c y crema #f3eee1, más mezclas
+   entre ambos (tonos salvia) y sombras del mismo verde.
    ========================================================= */
 :root {
   /* Verde del logo y sus sombras */
-  --green: #44690a;
-  --green-700: #2f4a06;
-  --green-800: #1a2a04;
-  --green-900: #0d1602;
-  --green-950: #070c01;
-  /* Hongos */
-  --violet: #8b2cf1;
-  --indigo: #593aef;
-  --blue: #0f5def;
-  --azure: #0d98de;
-  --cyan: #27e4e7;
-  --aqua: #24d5b8;
-  --leaf: #3ccd88;
-  --white: #ffffff;
+  --green: #1f5a42;
+  --green-700: #144431;
+  --green-800: #0b2d1c;
+  --green-900: #082317;
+  --green-950: #061a10;
+  /* Crema del logo y mezclas crema→verde (los nombres de los acentos se conservan) */
+  --cyan: #f3eee1;     /* crema */
+  --aqua: #d0d1c3;     /* crema 85 % */
+  --leaf: #adb4a6;     /* crema 70 % */
+  --azure: #8b9788;    /* crema 55 % */
+  --blue: #687a6b;     /* crema 40 % */
+  --indigo: #455d4d;   /* crema 25 % */
+  --violet: #adb4a6;   /* salvia */
+  --white: #f3eee1;
 
   /* Versiones RGB para transparencias */
-  --rgb-green: 68, 105, 10;
-  --rgb-green-950: 7, 12, 1;
-  --rgb-green-900: 13, 22, 2;
-  --rgb-violet: 139, 44, 241;
-  --rgb-indigo: 89, 58, 239;
-  --rgb-blue: 15, 93, 239;
-  --rgb-azure: 13, 152, 222;
-  --rgb-cyan: 39, 228, 231;
-  --rgb-aqua: 36, 213, 184;
-  --rgb-leaf: 60, 205, 136;
-  --rgb-white: 255, 255, 255;
+  --rgb-green: 31, 90, 66;
+  --rgb-green-950: 6, 26, 16;
+  --rgb-green-900: 8, 35, 23;
+  --rgb-violet: 173, 180, 166;
+  --rgb-indigo: 69, 93, 77;
+  --rgb-blue: 104, 122, 107;
+  --rgb-azure: 139, 151, 136;
+  --rgb-cyan: 243, 238, 225;
+  --rgb-aqua: 208, 209, 195;
+  --rgb-leaf: 173, 180, 166;
+  --rgb-white: 243, 238, 225;
 
   --text: var(--white);
-  --muted: rgba(var(--rgb-white), .72);
+  --muted: rgba(var(--rgb-white), .74);
   --glass-line: rgba(var(--rgb-cyan), .16);
   --radius: 20px;
   --serif: "Fraunces", Georgia, serif;
   --sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  --magic: linear-gradient(100deg, var(--cyan) 0%, var(--azure) 25%, var(--violet) 50%, var(--aqua) 75%, var(--cyan) 100%);
+  --magic: linear-gradient(100deg, var(--cyan) 0%, var(--leaf) 30%, var(--cyan) 50%, var(--aqua) 75%, var(--cyan) 100%);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -110,11 +109,11 @@ p { margin: 0 0 1em; }
 .btn svg { width: 1.25em; height: 1.25em; }
 .btn-sm { padding: .55em 1.15em; font-size: .9rem; }
 .btn-whatsapp {
-  background: var(--green); color: var(--white);
-  border-color: rgba(var(--rgb-leaf), .7);
-  box-shadow: 0 0 22px rgba(var(--rgb-leaf), .35), inset 0 0 12px rgba(var(--rgb-leaf), .25);
+  background: var(--cyan); color: var(--green-800);
+  border-color: var(--cyan);
+  box-shadow: 0 0 22px rgba(var(--rgb-cyan), .25);
 }
-.btn-whatsapp:hover { background: var(--leaf); color: var(--green-950); box-shadow: 0 0 30px rgba(var(--rgb-leaf), .7); }
+.btn-whatsapp:hover { background: var(--white); color: var(--green-950); box-shadow: 0 0 30px rgba(var(--rgb-cyan), .55); }
 .btn-ghost, .btn-outline, .btn-light {
   color: var(--white); border-color: rgba(var(--rgb-cyan), .35); background: rgba(var(--rgb-white), .04);
   backdrop-filter: blur(6px);
@@ -133,7 +132,7 @@ p { margin: 0 0 1em; }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
 .brand { display: flex; align-items: center; gap: .65rem; text-decoration: none; color: var(--white); font-family: var(--serif); font-size: 1.3rem; font-weight: 700; }
 .brand em { font-style: italic; font-weight: 400; color: var(--cyan); text-shadow: 0 0 12px rgba(var(--rgb-cyan), .6); }
-.brand-mark { width: 44px; height: 44px; border-radius: 12px; box-shadow: 0 0 0 1px rgba(var(--rgb-cyan), .4), 0 0 18px rgba(var(--rgb-cyan), .35); }
+.brand-mark { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(var(--rgb-cyan), .4), 0 0 18px rgba(var(--rgb-cyan), .35); }
 .nav { display: flex; align-items: center; gap: 1.6rem; }
 .nav a:not(.btn) { color: rgba(var(--rgb-white), .85); text-decoration: none; font-size: .95rem; font-weight: 500; transition: color .25s, text-shadow .25s; }
 .nav a:not(.btn):hover { color: var(--white); text-shadow: 0 0 12px rgba(var(--rgb-cyan), .9); }
@@ -179,13 +178,13 @@ p { margin: 0 0 1em; }
 
 .hero-logo { position: relative; justify-self: end; width: min(100%, 420px); }
 .hero-logo::before {
-  content: ""; position: absolute; inset: -14px; border-radius: 44px; z-index: -1;
-  background: conic-gradient(from var(--a, 0deg), var(--cyan), var(--blue), var(--violet), var(--aqua), var(--cyan));
+  content: ""; position: absolute; inset: -14px; border-radius: 50%; z-index: -1;
+  background: conic-gradient(from var(--a, 0deg), var(--cyan), var(--green), var(--leaf), var(--green-700), var(--cyan));
   filter: blur(18px); opacity: .85;
   animation: spin 9s linear infinite, float 7s ease-in-out infinite;
 }
 .hero-logo img {
-  display: block; width: 100%; height: auto; border-radius: 32px;
+  display: block; width: 100%; height: auto; border-radius: 50%;
   box-shadow: 0 0 0 1px rgba(var(--rgb-white), .25), 0 30px 60px rgba(var(--rgb-green-950), .6);
   animation: float 7s ease-in-out infinite;
 }
@@ -212,8 +211,8 @@ p { margin: 0 0 1em; }
 @media (max-width: 880px) {
   .hero-grid { grid-template-columns: 1fr; gap: 2rem; padding-top: 100px; padding-bottom: 190px; }
   .hero-logo { order: -1; justify-self: start; width: 140px; }
-  .hero-logo::before { inset: -8px; border-radius: 28px; filter: blur(12px); }
-  .hero-logo img { border-radius: 20px; }
+  .hero-logo::before { inset: -8px; border-radius: 50%; filter: blur(12px); }
+  .hero-logo img { border-radius: 50%; }
 }
 
 /* ===== Secciones ===== */
@@ -300,7 +299,7 @@ p { margin: 0 0 1em; }
     repeating-linear-gradient(90deg, transparent 0 34px, rgba(var(--rgb-green-950), .7) 34px 42px),
     linear-gradient(180deg, var(--green), var(--green-800));
 }
-.tour-media--forest::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4 14 30h9L10 48h44L41 30h9z' fill='%233ccd88'/%3E%3Crect x='29' y='48' width='6' height='12' fill='%2324d5b8'/%3E%3C/svg%3E"); }
+.tour-media--forest::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4 14 30h9L10 48h44L41 30h9z' fill='%23d0d1c3'/%3E%3Crect x='29' y='48' width='6' height='12' fill='%23adb4a6'/%3E%3C/svg%3E"); }
 /* Medicina: resplandor violeta-azul y hongo del logo */
 .tour-media--spirit {
   background:
@@ -308,21 +307,21 @@ p { margin: 0 0 1em; }
     radial-gradient(ellipse at 50% 100%, rgba(var(--rgb-violet), .85), transparent 70%),
     linear-gradient(180deg, var(--green-950), rgba(var(--rgb-indigo), .55));
 }
-.tour-media--spirit::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='c' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%238b2cf1'/%3E%3Cstop offset='.6' stop-color='%230f5def'/%3E%3Cstop offset='1' stop-color='%2327e4e7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M28 32c-1 12-2 18-4 26h16c-2-8-3-14-4-26z' fill='%2327e4e7'/%3E%3Cpath d='M6 34C6 18 17 6 32 6s26 12 26 28c-8-3-17-4-26-4S14 31 6 34z' fill='url(%23c)'/%3E%3Cpath d='M12 32c6-2 13-3 20-3s14 1 20 3' stroke='%23ffffff' stroke-width='1.5' fill='none' opacity='.7'/%3E%3C/svg%3E"); }
+.tour-media--spirit::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='c' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23f3eee1'/%3E%3Cstop offset='.6' stop-color='%23d0d1c3'/%3E%3Cstop offset='1' stop-color='%23f3eee1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M28 32c-1 12-2 18-4 26h16c-2-8-3-14-4-26z' fill='%23f3eee1'/%3E%3Cpath d='M6 34C6 18 17 6 32 6s26 12 26 28c-8-3-17-4-26-4S14 31 6 34z' fill='url(%23c)'/%3E%3Cpath d='M12 32c6-2 13-3 20-3s14 1 20 3' stroke='%23f3eee1' stroke-width='1.5' fill='none' opacity='.7'/%3E%3C/svg%3E"); }
 /* Temazcal: domo verde con vapor y luz cian */
 .tour-media--ceremony {
   background:
     radial-gradient(circle at 50% 80%, rgba(var(--rgb-cyan), .6) 0 6%, rgba(var(--rgb-azure), .35) 16%, transparent 42%),
     linear-gradient(180deg, var(--green-950), var(--green-800));
 }
-.tour-media--ceremony::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M22 14c-3-4 3-6 0-10M32 12c-3-4 3-6 0-10M42 14c-3-4 3-6 0-10' stroke='%23ffffff' stroke-width='2.5' fill='none' stroke-linecap='round' opacity='.85'/%3E%3Cpath d='M6 58c0-20 12-36 26-36s26 16 26 36z' fill='%2344690a'/%3E%3Cpath d='M26 58c0-8 3-13 6-13s6 5 6 13z' fill='%2327e4e7'/%3E%3C/svg%3E"); }
+.tour-media--ceremony::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M22 14c-3-4 3-6 0-10M32 12c-3-4 3-6 0-10M42 14c-3-4 3-6 0-10' stroke='%23f3eee1' stroke-width='2.5' fill='none' stroke-linecap='round' opacity='.85'/%3E%3Cpath d='M6 58c0-20 12-36 26-36s26 16 26 36z' fill='%231f5a42'/%3E%3Cpath d='M26 58c0-8 3-13 6-13s6 5 6 13z' fill='%23f3eee1'/%3E%3C/svg%3E"); }
 /* Hospedaje: noche con luna blanca y casita */
 .tour-media--stay {
   background:
     radial-gradient(circle at 76% 32%, var(--white) 0 6%, rgba(var(--rgb-white), .25) 8%, transparent 16%),
     linear-gradient(180deg, rgba(var(--rgb-blue), .55), rgba(var(--rgb-indigo), .35) 55%, var(--green) 56%, var(--green-800));
 }
-.tour-media--stay::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 30 32 10l24 20v28H8z' fill='%23ffffff'/%3E%3Cpath d='M4 32 32 8l28 24' stroke='%2344690a' stroke-width='5' fill='none' stroke-linejoin='round'/%3E%3Crect x='27' y='40' width='10' height='18' fill='%2344690a'/%3E%3Crect x='14' y='36' width='8' height='8' fill='%2327e4e7'/%3E%3Crect x='42' y='36' width='8' height='8' fill='%2327e4e7'/%3E%3C/svg%3E"); }
+.tour-media--stay::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M8 30 32 10l24 20v28H8z' fill='%23f3eee1'/%3E%3Cpath d='M4 32 32 8l28 24' stroke='%231f5a42' stroke-width='5' fill='none' stroke-linejoin='round'/%3E%3Crect x='27' y='40' width='10' height='18' fill='%231f5a42'/%3E%3Crect x='14' y='36' width='8' height='8' fill='%23f3eee1'/%3E%3Crect x='42' y='36' width='8' height='8' fill='%23f3eee1'/%3E%3C/svg%3E"); }
 
 .tour-body { padding: 1.6rem; display: flex; flex-direction: column; flex: 1; }
 .tour-tag { font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; color: var(--cyan); font-weight: 600; margin-bottom: .5rem; text-shadow: 0 0 10px rgba(var(--rgb-cyan), .5); }
@@ -437,7 +436,7 @@ p { margin: 0 0 1em; }
 /* ===== Pie de página ===== */
 .site-footer { position: relative; color: var(--muted); padding: 4rem 0 6rem; font-size: .95rem; background: linear-gradient(180deg, transparent, rgba(var(--rgb-green-950), .7)); }
 .footer-inner { display: grid; gap: .4rem; text-align: center; }
-.footer-logo { width: 72px; height: 72px; border-radius: 16px; margin: 0 auto .9rem; box-shadow: 0 0 30px rgba(var(--rgb-cyan), .35); }
+.footer-logo { width: 84px; height: 84px; border-radius: 50%; margin: 0 auto .9rem; box-shadow: 0 0 30px rgba(var(--rgb-cyan), .35); }
 .footer-inner strong { color: var(--white); font-family: var(--serif); }
 .footer-inner a { color: var(--cyan); text-decoration: none; }
 .small { font-size: .82rem; opacity: .75; }
@@ -446,18 +445,18 @@ p { margin: 0 0 1em; }
 .whatsapp-float {
   position: fixed; right: 18px; bottom: 18px; z-index: 40;
   width: 58px; height: 58px; border-radius: 50%;
-  background: var(--green); color: var(--white);
-  border: 1.5px solid rgba(var(--rgb-leaf), .8);
+  background: var(--cyan); color: var(--green-800);
+  border: 1.5px solid var(--cyan);
   display: grid; place-items: center;
   box-shadow: 0 0 24px rgba(var(--rgb-leaf), .45), 0 8px 24px rgba(var(--rgb-green-950), .6);
   transition: transform .2s, background .2s, color .2s;
 }
 .whatsapp-float::before {
-  content: ""; position: absolute; inset: -1.5px; border-radius: 50%; border: 2px solid var(--leaf);
+  content: ""; position: absolute; inset: -1.5px; border-radius: 50%; border: 2px solid var(--cyan);
   animation: ring 2.6s ease-out infinite;
 }
 @keyframes ring { from { transform: scale(1); opacity: .8; } to { transform: scale(1.7); opacity: 0; } }
-.whatsapp-float:hover { transform: scale(1.08); background: var(--leaf); color: var(--green-950); }
+.whatsapp-float:hover { transform: scale(1.08); background: var(--white); color: var(--green-950); }
 .whatsapp-float svg { width: 30px; height: 30px; }
 
 /* ===== Aparición ===== */

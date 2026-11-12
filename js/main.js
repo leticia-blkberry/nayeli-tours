@@ -6,7 +6,7 @@ const MESSENGER_URL = "https://m.me/Nayetours";
 
 // ===== Enlaces de WhatsApp =====
 document.querySelectorAll(".js-whatsapp").forEach((el) => {
-  const msg = el.dataset.msg || "¡Hola! Quiero información sobre Nayeli Tours.";
+  const msg = el.dataset.msg || "¡Hola! Quiero información sobre Nadxheelii Tours.";
   el.href = WHATSAPP_NUMBER
     ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`
     : MESSENGER_URL;
@@ -82,8 +82,8 @@ if (starsGroup) {
 const canvas = document.getElementById("magic");
 if (canvas && !reduceMotion) {
   const ctx = canvas.getContext("2d");
-  // Colores del logo: cian, celeste, azul, violeta, aqua, verde hoja
-  const colors = ["39,228,231", "13,152,222", "15,93,239", "139,44,241", "36,213,184", "60,205,136"];
+  // Colores del logo: crema y tonos salvia
+  const colors = ["243,238,225", "243,238,225", "208,209,195", "173,180,166"];
   let w, h, dpr, spores = [], sparks = [];
 
   const resize = () => {

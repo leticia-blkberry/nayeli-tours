@@ -1,7 +1,7 @@
-# Nayeli Tours
+# Nadxheelii Tours
 
-Sitio web de **Nayeli Tours** — senderismo, medicina, temazcal y hospedaje en San José del Pacífico, Oaxaca.
-Contenido tomado de la página de Facebook (aparece como *Nadxheelii Tours*): https://www.facebook.com/Nayetours
+Sitio web de **Nadxheelii Tours** — senderismo, medicina, temazcal y hospedaje en San José del Pacífico, Oaxaca.
+Contenido tomado de la página de Facebook: https://www.facebook.com/Nayetours
 
 Sitio estático (HTML + CSS + JS, sin compilación), listo para GitHub Pages.
 

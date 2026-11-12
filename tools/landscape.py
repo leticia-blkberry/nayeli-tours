@@ -2,7 +2,7 @@
 
 Usage: python3 landscape.py <index.html>
 Replaces everything between the moon and the mushroom group with new layers.
-Colors are the logo's aqua / leaf green blended over the dark logo-green base.
+Colors are the logo's forest green and cream, blended into darker greens.
 """
 import math
 import random
@@ -118,16 +118,17 @@ def cloud(xc, yc, length, thick):
 
 
 def build():
-    c_far = blend(AQUA, 0.40)
-    c_main = blend(AQUA, 0.29)
-    c_hi = blend(AQUA, 0.42)
-    c_hills = blend(AQUA, 0.19)
-    c_cloud1 = blend(AQUA, 0.42)
-    c_cloud2 = blend(AQUA, 0.28)
-    c_row1 = blend(LEAF, 0.15)
-    c_row2 = blend(LEAF, 0.09)
-    c_row3 = "#0a1302"
-    c_front = "#060a01"
+    # Logo palette: forest green #0b2d1c and cream #f3eee1 (plus blends)
+    c_far = "#32634d"
+    c_main = "#265440"
+    c_hi = "#4f7360"
+    c_hills = "#15402e"
+    c_cloud1 = "#4f7863"
+    c_cloud2 = "#254d3b"
+    c_row1 = "#113726"
+    c_row2 = "#0d2d1f"
+    c_row3 = "#082317"
+    c_front = "#041209"
 
     clouds1 = " ".join(cloud(*c) for c in [(240, 92, 520, 40), (1120, 70, 640, 46), (620, 210, 460, 30), (1330, 230, 360, 30)])
     clouds2 = " ".join(cloud(*c) for c in [(80, 180, 320, 26), (900, 150, 420, 26), (430, 300, 380, 22), (1180, 330, 480, 26), (1000, 260, 280, 18)])
@@ -150,8 +151,8 @@ def build():
             <path d="{clouds1}" fill="{c_cloud1}"/>
           </g>
           <circle class="moon-glow" cx="790" cy="125" r="170" fill="url(#moonGlow)"/>
-          <circle cx="790" cy="125" r="40" fill="#ffffff"/>
-          <circle cx="803" cy="116" r="8" fill="#0d98de" fill-opacity=".18"/><circle cx="780" cy="141" r="5" fill="#0d98de" fill-opacity=".18"/>
+          <circle cx="790" cy="125" r="40" fill="#f3eee1"/>
+          <circle cx="803" cy="116" r="8" fill="#0b2d1c" fill-opacity=".12"/><circle cx="780" cy="141" r="5" fill="#0b2d1c" fill-opacity=".12"/>
           <path d="{far}" fill="{c_far}"/>
           <path d="{main}" fill="{c_main}"/>
           <path d="{hi}" fill="{c_hi}"/>
@@ -168,17 +169,20 @@ def build():
 if __name__ == "__main__":
     p = sys.argv[1]
     s = open(p, encoding="utf-8").read()
-    start = s.index('          <circle class="moon-glow"')
+    # replace from the cloud layer (or the moon, on a first run) up to the mushrooms
+    start = s.find('          <g class="clouds">')
+    if start == -1:
+        start = s.index('          <circle class="moon-glow"')
     end = s.index('          <g filter="url(#glow)">')
     s = s[:start] + build() + s[end:]
     # sky: flat green night like the reference, aurora keeps the magic
     a = s.index('<linearGradient id="sky"')
     b = s.index('</linearGradient>', a) + len('</linearGradient>')
     s = s[:a] + '''<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#050801"/>
-              <stop offset=".45" stop-color="#0d1602"/>
-              <stop offset=".75" stop-color="#10291d"/>
-              <stop offset="1" stop-color="#0d1602"/>
+              <stop offset="0" stop-color="#030c07"/>
+              <stop offset=".45" stop-color="#061a10"/>
+              <stop offset=".75" stop-color="#0b2d1c"/>
+              <stop offset="1" stop-color="#061a10"/>
             </linearGradient>''' + s[b:]
     # drop the old simple pine symbol
     a = s.find('            <symbol id="pine"')
