@@ -146,23 +146,34 @@ def build():
     giants = " ".join([fir(10, 905, 560, 230), fir(120, 905, 430, 180), fir(1330, 905, 470, 200), fir(1440, 905, 590, 240)])
     ground = fmt(ridge([(-40, 855), (360, 845), (720, 860), (1080, 848), (1480, 856)], 5, 30) + [(1480, 900), (-40, 900)])
 
+    birds = "\n".join(
+        f'              <g transform="translate({x} {y}) scale({k})"><path class="wing" style="animation-delay:-{d}s" d="M-12 0Q-6-7 0 0Q6-7 12 0" fill="none" stroke="#f3eee1" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g>'
+        for x, y, k, d in [(0, 0, 1.7, 0), (-58, 24, 1.4, .25), (-52, -28, 1.3, .5), (-112, 44, 1.1, .15), (-106, -50, 1.05, .4), (-164, 10, .95, .3)])
+
+    # Intro animation hooks (see "Intro" in css/styles.css):
+    # clouds slide in from the sides, moon fades in, birds fly past,
+    # and each landscape layer rises from below in turn.
     return f'''          <g class="clouds">
-            <path d="{clouds2}" fill="{c_cloud2}"/>
-            <path d="{clouds1}" fill="{c_cloud1}"/>
+            <g class="intro-from-left"><path class="cloud-drift" d="{clouds2}" fill="{c_cloud2}"/></g>
+            <g class="intro-from-right"><path class="cloud-drift cloud-drift-slow" d="{clouds1}" fill="{c_cloud1}"/></g>
           </g>
-          <circle class="moon-glow" cx="790" cy="125" r="170" fill="url(#moonGlow)"/>
-          <circle cx="790" cy="125" r="40" fill="#f3eee1"/>
-          <circle cx="803" cy="116" r="8" fill="#0b2d1c" fill-opacity=".12"/><circle cx="780" cy="141" r="5" fill="#0b2d1c" fill-opacity=".12"/>
-          <path d="{far}" fill="{c_far}"/>
-          <path d="{main}" fill="{c_main}"/>
-          <path d="{hi}" fill="{c_hi}"/>
+          <g class="moon">
+            <circle class="moon-glow" cx="790" cy="125" r="170" fill="url(#moonGlow)"/>
+            <circle cx="790" cy="125" r="40" fill="#f3eee1"/>
+            <circle cx="803" cy="116" r="8" fill="#0b2d1c" fill-opacity=".12"/><circle cx="780" cy="141" r="5" fill="#0b2d1c" fill-opacity=".12"/>
+          </g>
+          <g class="birds-intro" transform="translate(690 118)"><g class="birds">
+{birds}
+          </g></g>
+          <g class="rise rise-1"><path d="{far}" fill="{c_far}"/></g>
+          <g class="rise rise-2"><path d="{main}" fill="{c_main}"/><path d="{hi}" fill="{c_hi}"/></g>
           <rect class="mist mist-a" x="-200" y="520" width="1840" height="140" fill="url(#mist)"/>
-          <path d="{hills}" fill="{c_hills}"/>
-          <path d="{row1}" fill="{c_row1}"/>
+          <g class="rise rise-3"><path d="{hills}" fill="{c_hills}"/></g>
+          <g class="rise rise-4"><path d="{row1}" fill="{c_row1}"/></g>
           <rect class="mist mist-b" x="-200" y="660" width="1840" height="110" fill="url(#mist)"/>
-          <path d="{row2}" fill="{c_row2}"/>
-          <path d="{row3}" fill="{c_row3}"/>
-          <path d="{giants} {ground}" fill="{c_front}"/>
+          <g class="rise rise-5"><path d="{row2}" fill="{c_row2}"/></g>
+          <g class="rise rise-6"><path d="{row3}" fill="{c_row3}"/></g>
+          <g class="rise rise-7"><path d="{giants} {ground}" fill="{c_front}"/></g>
 '''
 
 
@@ -173,7 +184,7 @@ if __name__ == "__main__":
     start = s.find('          <g class="clouds">')
     if start == -1:
         start = s.index('          <circle class="moon-glow"')
-    end = s.index('          <g filter="url(#glow)">')
+    end = s.index('          <g class="shrooms-intro" filter="url(#glow)">')
     s = s[:start] + build() + s[end:]
     # sky: flat green night like the reference, aurora keeps the magic
     a = s.index('<linearGradient id="sky"')

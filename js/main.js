@@ -163,3 +163,26 @@ if (canvas && !reduceMotion) {
   resize();
   requestAnimationFrame(tick);
 }
+
+// ===== Máquina de escribir: servicios del logo =====
+const typed = document.querySelector(".typed");
+if (typed && !reduceMotion) {
+  const out = typed.querySelector(".typed-text");
+  const words = typed.dataset.words.split("|");
+  typed.setAttribute("aria-label", words.join(" "));
+  out.setAttribute("aria-hidden", "true");
+  out.textContent = "";
+  let w = 0, i = 0, deleting = false;
+  const step = () => {
+    const word = words[w];
+    if (!deleting) {
+      out.textContent = word.slice(0, ++i);
+      if (i === word.length) { deleting = true; return setTimeout(step, 1800); }
+      return setTimeout(step, 85);
+    }
+    out.textContent = word.slice(0, --i);
+    if (i === 0) { deleting = false; w = (w + 1) % words.length; return setTimeout(step, 350); }
+    setTimeout(step, 40);
+  };
+  setTimeout(step, 2000);
+}
