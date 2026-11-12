@@ -262,15 +262,16 @@ p { margin: 0 0 1em; }
 /* ===== Pilares ===== */
 .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
 .pillar { border-radius: var(--radius); padding: 2.1rem; }
+/* Íconos en el estilo del logotipo: dibujo de líneas crema dentro de
+   un círculo verde bosque con anillo crema, como un pequeño sello. */
 .pillar-icon {
-  width: 58px; height: 58px; border-radius: 18px; display: grid; place-items: center; margin-bottom: 1.3rem;
-  color: var(--white);
-  background: radial-gradient(circle at 30% 25%, rgba(var(--rgb-aqua), .6), rgba(var(--rgb-green), .7) 70%);
-  box-shadow: 0 0 24px rgba(var(--rgb-aqua), .35), inset 0 0 12px rgba(var(--rgb-white), .2);
+  width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center; margin-bottom: 1.4rem;
+  color: var(--cyan); background: var(--green-800);
+  box-shadow: 0 0 0 4px var(--green-800), 0 0 0 5.5px var(--cyan), 0 0 26px rgba(var(--rgb-cyan), .22);
+  transition: box-shadow .35s ease;
 }
-.pillar:nth-child(2) .pillar-icon { background: radial-gradient(circle at 30% 25%, rgba(var(--rgb-violet), .75), rgba(var(--rgb-blue), .45) 70%); box-shadow: 0 0 24px rgba(var(--rgb-violet), .45), inset 0 0 12px rgba(var(--rgb-white), .2); }
-.pillar:nth-child(3) .pillar-icon { background: radial-gradient(circle at 30% 25%, rgba(var(--rgb-cyan), .7), rgba(var(--rgb-azure), .45) 70%); box-shadow: 0 0 24px rgba(var(--rgb-cyan), .4), inset 0 0 12px rgba(var(--rgb-white), .2); }
-.pillar-icon svg { width: 30px; height: 30px; filter: drop-shadow(0 0 6px rgba(var(--rgb-white), .6)); }
+.pillar:hover .pillar-icon { box-shadow: 0 0 0 4px var(--green-800), 0 0 0 5.5px var(--cyan), 0 0 36px rgba(var(--rgb-cyan), .45); }
+.pillar-icon svg { width: 60px; height: 60px; overflow: visible; }
 .pillar h3 { font-size: 1.45rem; color: var(--white); }
 .pillar p { color: var(--muted); margin: 0; }
 
