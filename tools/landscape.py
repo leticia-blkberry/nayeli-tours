@@ -158,11 +158,11 @@ def build():
             <g class="intro-from-right"><path class="cloud-drift cloud-drift-slow" d="{clouds1}" fill="#f3eee1" fill-opacity=".16"/></g>
           </g>
           <g class="moon">
-            <circle class="moon-glow" cx="790" cy="125" r="170" fill="url(#moonGlow)"/>
-            <circle cx="790" cy="125" r="40" fill="#f3eee1"/>
-            <circle cx="803" cy="116" r="8" fill="#0b2d1c" fill-opacity=".12"/><circle cx="780" cy="141" r="5" fill="#0b2d1c" fill-opacity=".12"/>
+            <circle class="moon-glow" cx="900" cy="112" r="170" fill="url(#moonGlow)"/>
+            <circle cx="900" cy="112" r="40" fill="#f3eee1"/>
+            <circle cx="913" cy="103" r="8" fill="#0b2d1c" fill-opacity=".12"/><circle cx="890" cy="128" r="5" fill="#0b2d1c" fill-opacity=".12"/>
           </g>
-          <g class="birds-intro" transform="translate(690 118)"><g class="birds">
+          <g class="birds-intro" transform="translate(600 150)"><g class="birds">
 {birds}
           </g></g>
           <g class="rise rise-1"><path d="{far}" fill="{c_far}"/></g>

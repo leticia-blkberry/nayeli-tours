@@ -186,3 +186,11 @@ if (typed && !reduceMotion) {
   };
   setTimeout(step, 2000);
 }
+
+// ===== Video de la portada: sin reproducción automática con movimiento reducido =====
+const heroVideo = document.querySelector(".hero-video");
+if (heroVideo && reduceMotion) {
+  heroVideo.removeAttribute("autoplay");
+  heroVideo.pause();
+  heroVideo.controls = true;
+}
