@@ -157,22 +157,30 @@ def build():
     # Intro animation hooks (see "Intro" in css/styles.css):
     # clouds slide in from the sides, moon fades in, birds fly past,
     # and each landscape layer rises from below in turn.
-    return f'''          <g class="clouds" filter="url(#glow)">
+    # Everything scenic sits in #land. Two mirrored copies (about x=0 and x=1440)
+    # extend it seamlessly to the sides, so very wide screens can show the full
+    # height (preserveAspectRatio "meet", set in js/main.js) instead of cropping
+    # the mountain tops. Birds stay outside so they are not duplicated.
+    return f'''          <g id="land">
+          <g class="clouds" filter="url(#glow)">
             <g class="intro-from-left"><path class="cloud-drift" d="{clouds2}" fill="#f3eee1" fill-opacity=".10"/></g>
             <g class="intro-from-right"><path class="cloud-drift cloud-drift-slow" d="{clouds1}" fill="#f3eee1" fill-opacity=".16"/></g>
           </g>
-          <g class="birds-intro" transform="translate(470 160)"><g class="birds">
-{birds}
-          </g></g>
           <g class="rise rise-1"><path d="{far}" fill="{c_far}"/></g>
           <g class="rise rise-2"><path d="{main}" fill="{c_main}"/><path d="{hi}" fill="{c_hi}"/></g>
-          <rect class="mist mist-a" x="-200" y="520" width="1840" height="140" fill="url(#mist)"/>
+          <rect class="mist mist-a" x="0" y="520" width="1440" height="140" fill="url(#mist)"/>
           <g class="rise rise-3"><path d="{hills}" fill="{c_hills}"/></g>
           <g class="rise rise-4"><path d="{row1}" fill="{c_row1}"/></g>
-          <rect class="mist mist-b" x="-200" y="660" width="1840" height="110" fill="url(#mist)"/>
+          <rect class="mist mist-b" x="0" y="660" width="1440" height="110" fill="url(#mist)"/>
           <g class="rise rise-5"><path d="{row2}" fill="{c_row2}"/></g>
           <g class="rise rise-6"><path d="{row3}" fill="{c_row3}"/></g>
           <g class="rise rise-7"><path d="{ground}" fill="{c_front}"/></g>
+          </g>
+          <use class="land-mirror" href="#land" transform="matrix(-1 0 0 1 0 0)"/>
+          <use class="land-mirror" href="#land" transform="matrix(-1 0 0 1 2880 0)"/>
+          <g class="birds-intro" transform="translate(470 160)"><g class="birds">
+{birds}
+          </g></g>
 '''
 
 
@@ -180,7 +188,9 @@ if __name__ == "__main__":
     p = sys.argv[1]
     s = open(p, encoding="utf-8").read()
     # replace from the cloud layer (or the moon, on a first run) up to the mushrooms
-    start = s.find('          <g class="clouds"')
+    start = s.find('          <g id="land">')
+    if start == -1:
+        start = s.find('          <g class="clouds"')
     if start == -1:
         start = s.index('          <circle class="moon-glow"')
     end = s.index('          <!-- /paisaje -->')

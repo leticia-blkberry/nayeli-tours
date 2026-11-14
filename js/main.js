@@ -76,9 +76,9 @@ const motionHooks = [];
 const starsGroup = document.getElementById("stars");
 if (starsGroup) {
   const ns = "http://www.w3.org/2000/svg";
-  for (let i = 0; i < 140; i++) {
+  for (let i = 0; i < 300; i++) {
     const c = document.createElementNS(ns, "circle");
-    c.setAttribute("cx", (Math.random() * 1440).toFixed(1));
+    c.setAttribute("cx", (Math.random() * 3200 - 880).toFixed(1));
     c.setAttribute("cy", (Math.pow(Math.random(), 1.6) * 560).toFixed(1));
     c.setAttribute("r", (Math.random() * 1.3 + 0.3).toFixed(2));
     c.style.animationDelay = `${(-Math.random() * 3).toFixed(2)}s`;
@@ -432,4 +432,18 @@ toggle.addEventListener("click", () => {
   };
   apply();
   if (!forced) setInterval(apply, 5 * 60 * 1000);
+})();
+
+// ===== Paisaje en pantallas muy anchas: mostrar toda la altura (sin recortar montañas) =====
+(() => {
+  const svg = document.querySelector(".hero-land");
+  const hero = document.querySelector(".hero");
+  if (!svg || !hero) return;
+  const fit = () => {
+    const wide = hero.clientWidth / hero.clientHeight > 1440 / 900;
+    svg.setAttribute("preserveAspectRatio", wide ? "xMidYMax meet" : "xMidYMax slice");
+  };
+  fit();
+  if ("ResizeObserver" in window) new ResizeObserver(fit).observe(hero);
+  else window.addEventListener("resize", fit);
 })();
