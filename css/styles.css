@@ -1037,3 +1037,27 @@ html.motion-off .film-grain, html.motion-off .scene-fx { display: none; }
 html.motion-off.film .scene > .container { transform: none !important; filter: none !important; opacity: 1 !important; transition: none; }
 
 @media print { html.film .scene > .container { transform: none !important; filter: none !important; opacity: 1 !important; } .scene-fx, .film-grain, .film-vignette { display: none !important; } }
+
+/* ===== Rayos de sol (solo de día): luz que baja del sol sobre el bosque ===== */
+.sun-beams {
+  display: none; position: absolute; z-index: -1; pointer-events: none;
+  left: 63%; top: 128px; width: 170vw; height: 140vh; margin-left: -85vw;
+  transform-origin: 50% 0; mix-blend-mode: screen; filter: blur(4px);
+  background: conic-gradient(from 120deg at 50% 0%, rgba(243, 238, 225,0) 0deg, rgba(243, 238, 225,0) 4deg, rgba(243, 238, 225,.55) 5.5deg, rgba(243, 238, 225,0) 7deg, rgba(243, 238, 225,0) 14deg, rgba(243, 238, 225,.55) 16.5deg, rgba(243, 238, 225,0) 19deg, rgba(243, 238, 225,0) 27deg, rgba(243, 238, 225,.55) 28.2deg, rgba(243, 238, 225,0) 29.5deg, rgba(243, 238, 225,0) 36deg, rgba(243, 238, 225,.55) 39.0deg, rgba(243, 238, 225,0) 42deg, rgba(243, 238, 225,0) 50deg, rgba(243, 238, 225,.55) 51.5deg, rgba(243, 238, 225,0) 53deg, rgba(243, 238, 225,0) 61deg, rgba(243, 238, 225,.55) 63.2deg, rgba(243, 238, 225,0) 65.5deg, rgba(243, 238, 225,0) 73deg, rgba(243, 238, 225,.55) 74.2deg, rgba(243, 238, 225,0) 75.5deg, rgba(243, 238, 225,0) 84deg, rgba(243, 238, 225,.55) 86.5deg, rgba(243, 238, 225,0) 89deg, rgba(243, 238, 225,0) 97deg, rgba(243, 238, 225,.55) 98.5deg, rgba(243, 238, 225,0) 100deg, rgba(243, 238, 225,0) 108deg, rgba(243, 238, 225,.55) 110.0deg, rgba(243, 238, 225,0) 112deg, rgba(243, 238, 225,0) 120deg);
+  -webkit-mask-image: radial-gradient(ellipse 60% 95% at 50% 0%, #000 0%, rgba(0,0,0,.7) 50%, transparent 95%);
+          mask-image: radial-gradient(ellipse 60% 95% at 50% 0%, #000 0%, rgba(0,0,0,.7) 50%, transparent 95%);
+  opacity: .5; animation: sun-sway 18s ease-in-out infinite alternate, sun-breathe 7s ease-in-out infinite alternate;
+}
+/* Resplandor cálido donde la luz toca el bosque */
+.sun-beams::after {
+  content: ""; position: absolute; left: 50%; top: 52%; width: 70vw; height: 40vh; transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(243, 238, 225, .35), rgba(243, 238, 225, 0) 70%);
+}
+html.is-day .sun-beams { display: block; }
+@keyframes sun-sway { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+@keyframes sun-breathe { from { opacity: .65; } to { opacity: .95; } }
+@media (max-width: 880px) {
+  .sun-beams { left: calc(100% - 41px); top: 150px; width: 260vw; margin-left: -130vw; height: 120vh; animation: sun-sway 18s ease-in-out infinite alternate; opacity: .35; }
+}
+@media (prefers-reduced-motion: reduce) { .sun-beams { animation: none; opacity: .8; } }
+@media (prefers-reduced-motion: reduce) and (max-width: 880px) { .sun-beams { opacity: .35; } }
