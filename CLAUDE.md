@@ -30,6 +30,7 @@ Static one-page site (Spanish) for Nadxheelii Tours, a guide in San José del Pa
 - FAQ and service copy must not invent facts (prices, durations, meeting point, policies); point to WhatsApp until the client provides them.
 - Reservations are **requests only**: `#reservar` form validates and opens WhatsApp with a message marked as an unconfirmed request; it never books. Optional read-only Google Calendar (free/busy) embed via `GOOGLE_CALENDAR` in `js/main.js` (hidden while empty). Never use Google appointment schedules / booking pages or anything that lets visitors book directly.
 - Section order now ends: … Eventos → Solicita tu fecha (`#reservar`) → Contacto; the header "Reservar" button goes to `#reservar`.
+- Servicios layout: four selector tiles (`.svc-tab`, ARIA tabs, Honguitos first/selected) above one detail panel (`.svc-panel`: description + price left; fact chips, notes, Qué llevar, CTA right). Without JS all panels show stacked. "Solicitar fecha" buttons carry `data-service` and preselect the service in `#sol-servicio`.
 - Social links are icon buttons (`ul.social` > `a.social-link`, 44px, aria-label names the network): WhatsApp, Messenger (m.me/Nayetours), Facebook (facebook.com/Nayetours), TikTok (@nadxheeliitours, handle read from the client's TikTok watermark — confirm with client). Inline text CTAs to Facebook keep their text with a leading icon.
 - Footer must always include the credit line "Design by DigitalBlackBerry" (`.credit`).
 

@@ -60,7 +60,7 @@ if ("IntersectionObserver" in window) {
       }),
     { threshold: 0.12 }
   );
-  document.querySelectorAll(".section-head, .pillar, .journey, .faq-item, .tour, .g-item, .review, .event, .care-list li")
+  document.querySelectorAll(".section-head, .pillar, .journey, .faq-item, .svc, .tour, .g-item, .review, .event, .care-list li")
     .forEach((el) => { el.classList.add("reveal"); io.observe(el); });
 }
 
@@ -447,3 +447,38 @@ toggle.addEventListener("click", () => {
   if ("ResizeObserver" in window) new ResizeObserver(fit).observe(hero);
   else window.addEventListener("resize", fit);
 })();
+
+// ===== Servicios: pestañas (clic, flechas, Inicio/Fin) =====
+document.querySelectorAll("[data-tabs]").forEach((root) => {
+  const tabs = [...root.querySelectorAll('[role="tab"]')];
+  const panels = tabs.map((t) => document.getElementById(t.getAttribute("aria-controls")));
+  const show = (i, focus) => {
+    tabs.forEach((t, k) => {
+      const on = k === i;
+      t.classList.toggle("is-active", on);
+      t.setAttribute("aria-selected", String(on));
+      t.tabIndex = on ? 0 : -1;
+      panels[k].classList.toggle("is-active", on);
+    });
+    if (focus) tabs[i].focus();
+  };
+  tabs.forEach((t, k) => {
+    t.addEventListener("click", () => show(k));
+    t.addEventListener("keydown", (e) => {
+      const last = tabs.length - 1;
+      const to = { ArrowRight: k + 1, ArrowDown: k + 1, ArrowLeft: k - 1, ArrowUp: k - 1, Home: 0, End: last }[e.key];
+      if (to === undefined) return;
+      e.preventDefault();
+      show((to + tabs.length) % tabs.length, true);
+    });
+  });
+  root.classList.add("is-ready");
+});
+
+// ===== "Solicitar fecha" desde un servicio: preselecciona el servicio en el formulario =====
+document.querySelectorAll("[data-service]").forEach((a) => a.addEventListener("click", () => {
+  const sel = document.getElementById("sol-servicio");
+  if (!sel) return;
+  sel.value = a.dataset.service;
+  sel.dispatchEvent(new Event("change"));
+}));

@@ -276,63 +276,91 @@
           <h2>Todo para tu viaje a la <em>montaña</em></h2>
           <p>Combina los servicios que quieras. Cada grupo es distinto: escríbenos y armamos tu experiencia.</p>
         </header>
-        <div class="tours">
-          <article class="tour">
-            <div class="tour-media tour-media--forest"></div>
-            <div class="tour-body">
-              <p class="tour-tag">Senderismo</p>
-              <h3>Caminatas por el bosque de niebla</h3>
-              <p>Recorridos guiados entre pinos, musgo y neblina. Manejamos dos rutas; una de ellas sube al Cerro La Postema.</p>
-              <p class="tour-price"><span class="amount">$250</span> <span class="unit">MXN por persona</span></p>
-              <p class="tour-price-note">A partir de 2 personas.</p>
-              <ul class="tour-facts"><li><span class="fact-label">Ruta Cerro La Postema:</span> 7 km</li><li><span class="fact-label">Duración:</span> aprox. 2 h 30 min</li></ul>
-              <p class="tour-note">Grupos de más de 10 personas: precio especial, pregúntanos.</p>
-              <div class="tour-bring">
-                <p class="tour-bring-title">Qué llevar</p>
-                <ul><li>Ropa cómoda</li><li>Tenis o zapatos de senderismo</li><li>Agua</li></ul>
-              </div>
-              <a href="#reservar" class="btn btn-sm btn-light">Solicitar fecha</a>
-            </div>
-          </article>
-          <article class="tour tour--featured">
-            <div class="tour-media tour-media--spirit"></div>
-            <div class="tour-body">
-              <p class="tour-tag">Medicina</p>
+        <div class="svc" data-tabs>
+          <div class="svc-tabs" role="tablist" aria-label="Servicios">
+            <button class="svc-tab is-active" type="button" role="tab" id="svc-hongos-tab" aria-controls="svc-hongos" aria-selected="true" tabindex="0">
+              <span class="svc-tab-icon" aria-hidden="true"><img src="images/icon-hongo.png" alt="" width="160" height="160"></span>
+              <span class="svc-tab-name">Honguitos con guía</span>
+              <span class="svc-tab-price">desde <strong>$800</strong></span>
+            </button>
+            <button class="svc-tab" type="button" role="tab" id="svc-senderismo-tab" aria-controls="svc-senderismo" aria-selected="false" tabindex="-1">
+              <span class="svc-tab-icon" aria-hidden="true"><img src="images/icon-montana.png" alt="" width="160" height="160"></span>
+              <span class="svc-tab-name">Senderismo</span>
+              <span class="svc-tab-price">desde <strong>$250</strong></span>
+            </button>
+            <button class="svc-tab" type="button" role="tab" id="svc-temazcal-tab" aria-controls="svc-temazcal" aria-selected="false" tabindex="-1">
+              <span class="svc-tab-icon" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M22 18c-3-4 3-6 0-10M32 16c-3-4 3-6 0-10M42 18c-3-4 3-6 0-10" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M6 56c0-18 12-32 26-32s26 14 26 32z" fill="currentColor"/><path d="M26 56c0-7 3-12 6-12s6 5 6 12z" fill="#0b2d1c"/></svg></span>
+              <span class="svc-tab-name">Temazcal</span>
+              <span class="svc-tab-price">desde <strong>$500</strong></span>
+            </button>
+            <button class="svc-tab" type="button" role="tab" id="svc-hospedaje-tab" aria-controls="svc-hospedaje" aria-selected="false" tabindex="-1">
+              <span class="svc-tab-icon" aria-hidden="true"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 30 32 12l22 18v26H10z" fill="currentColor"/><path d="M27 56V42h10v14" fill="#0b2d1c"/><path d="M4 32 32 9l28 23" stroke="currentColor" stroke-width="4" fill="none" stroke-linejoin="round"/></svg></span>
+              <span class="svc-tab-name">Hospedaje</span>
+              <span class="svc-tab-price">pregúntanos</span>
+            </button>
+          </div>
+          <div class="svc-panels">
+          <div class="svc-panel is-active" role="tabpanel" id="svc-hongos" aria-labelledby="svc-hongos-tab">
+            <div class="svc-main">
+              <p class="tour-tag">Medicina <span class="svc-badge">Experiencia principal</span></p>
               <h3>Honguitos con guía</h3>
-              <p>Nuestra experiencia principal: exploración consciente con hongos mágicos, acompañada por tu guía en todo momento. La experiencia se realiza en el bosque.</p>
-              <p class="tour-price"><span class="amount">$800</span> <span class="unit">MXN por persona</span></p>
-              <p class="tour-price-note">A partir de 2 personas · $1,000 MXN si vienes solo.</p>
-              <ul class="tour-facts"><li><span class="fact-label">Duración:</span> de 3 a 4 horas aprox.</li><li><span class="fact-label">Lugar:</span> en el bosque</li><li><span class="fact-label">Edad:</span> solo mayores de 18 años</li></ul>
-              <p class="tour-note">En temporada de lluvias (junio a septiembre) el precio puede variar dependiendo de las lluvias.</p>
-              <a href="#reservar" class="btn btn-sm btn-whatsapp">Solicitar fecha</a>
+              <p class="svc-desc">Nuestra experiencia principal: exploración consciente con hongos mágicos, acompañada por tu guía en todo momento. La experiencia se realiza en el bosque.</p>
+                <p class="tour-price"><span class="amount">$800</span> <span class="unit">MXN por persona</span></p>
+                <p class="tour-price-note">A partir de 2 personas · $1,000 MXN si vienes solo.</p>
             </div>
-          </article>
-          <article class="tour">
-            <div class="tour-media tour-media--ceremony"></div>
-            <div class="tour-body">
-              <p class="tour-tag">Temazcal</p>
+            <div class="svc-side">
+              <ul class="svc-facts"><li><span class="fact-label">Duración</span><span class="fact-value">de 3 a 4 horas aprox.</span></li><li><span class="fact-label">Lugar</span><span class="fact-value">en el bosque</span></li><li><span class="fact-label">Edad</span><span class="fact-value">solo mayores de 18 años</span></li></ul>
+                <p class="tour-note">En temporada de lluvias (junio a septiembre) el precio puede variar dependiendo de las lluvias.</p>
+              <a href="#reservar" class="btn btn-whatsapp" data-service="Medicina con hongos">Solicitar fecha</a>
+            </div>
+          </div>
+          <div class="svc-panel" role="tabpanel" id="svc-senderismo" aria-labelledby="svc-senderismo-tab">
+            <div class="svc-main">
+              <p class="tour-tag">Senderismo </p>
+              <h3>Caminatas por el bosque de niebla</h3>
+              <p class="svc-desc">Recorridos guiados entre pinos, musgo y neblina. Manejamos dos rutas; una de ellas sube al Cerro La Postema.</p>
+                <p class="tour-price"><span class="amount">$250</span> <span class="unit">MXN por persona</span></p>
+                <p class="tour-price-note">A partir de 2 personas.</p>
+            </div>
+            <div class="svc-side">
+              <ul class="svc-facts"><li><span class="fact-label">Ruta Cerro La Postema</span><span class="fact-value">7 km</span></li><li><span class="fact-label">Duración</span><span class="fact-value">aprox. 2 h 30 min</span></li></ul>
+                <p class="tour-note">Grupos de más de 10 personas: precio especial, pregúntanos.</p>
+                <div class="tour-bring">
+                  <p class="tour-bring-title">Qué llevar</p>
+                  <ul><li>Ropa cómoda</li><li>Tenis o zapatos de senderismo</li><li>Agua</li></ul>
+                </div>
+              <a href="#reservar" class="btn btn-whatsapp" data-service="Senderismo">Solicitar fecha</a>
+            </div>
+          </div>
+          <div class="svc-panel" role="tabpanel" id="svc-temazcal" aria-labelledby="svc-temazcal-tab">
+            <div class="svc-main">
+              <p class="tour-tag">Temazcal </p>
               <h3>Baño de vapor con plantas medicinales</h3>
-              <p>Un baño de vapor con plantas medicinales y música relajante. Incluye miel para exfoliar la piel.</p>
-              <p class="tour-price"><span class="amount">$500</span> <span class="unit">MXN por persona</span></p>
-              <p class="tour-price-note">A partir de 2 personas.</p>
-              <ul class="tour-facts"><li><span class="fact-label">Duración:</span> 1 hora</li><li><span class="fact-label">Capacidad:</span> hasta 6 personas</li></ul>
-              <div class="tour-bring">
-                <p class="tour-bring-title">Qué llevar</p>
-                <ul><li>Toalla</li><li>Traje de baño o shorts</li><li>Ropa abrigadora para la salida</li></ul>
-              </div>
-              <a href="#reservar" class="btn btn-sm btn-light">Solicitar fecha</a>
+              <p class="svc-desc">Un baño de vapor con plantas medicinales y música relajante. Incluye miel para exfoliar la piel.</p>
+                <p class="tour-price"><span class="amount">$500</span> <span class="unit">MXN por persona</span></p>
+                <p class="tour-price-note">A partir de 2 personas.</p>
             </div>
-          </article>
-          <article class="tour">
-            <div class="tour-media tour-media--stay"></div>
-            <div class="tour-body">
-              <p class="tour-tag">Hospedaje</p>
+            <div class="svc-side">
+              <ul class="svc-facts"><li><span class="fact-label">Duración</span><span class="fact-value">1 hora</span></li><li><span class="fact-label">Capacidad</span><span class="fact-value">hasta 6 personas</span></li></ul>
+                <div class="tour-bring">
+                  <p class="tour-bring-title">Qué llevar</p>
+                  <ul><li>Toalla</li><li>Traje de baño o shorts</li><li>Ropa abrigadora para la salida</li></ul>
+                </div>
+              <a href="#reservar" class="btn btn-whatsapp" data-service="Temazcal">Solicitar fecha</a>
+            </div>
+          </div>
+          <div class="svc-panel" role="tabpanel" id="svc-hospedaje" aria-labelledby="svc-hospedaje-tab">
+            <div class="svc-main">
+              <p class="tour-tag">Hospedaje </p>
               <h3>Quédate en la montaña</h3>
-              <p>Descansa rodeado de bosque, con espacios para contemplar, hamacas y vistas al atardecer.</p>
-              <ul class="tour-facts"><li><span class="fact-label">Precio y disponibilidad:</span> pregúntanos por WhatsApp</li></ul>
-              <a href="#contacto" class="btn btn-sm btn-light js-whatsapp" data-msg="¡Hola! Quiero información sobre hospedaje con Nadxheelii Tours.">Consultar</a>
+              <p class="svc-desc">Descansa rodeado de bosque, con espacios para contemplar, hamacas y vistas al atardecer.</p>
             </div>
-          </article>
+            <div class="svc-side">
+              <ul class="svc-facts"><li><span class="fact-label">Precio y disponibilidad</span><span class="fact-value">pregúntanos por WhatsApp</span></li></ul>
+              <a href="#contacto" class="btn btn-whatsapp js-whatsapp" data-msg="¡Hola! Quiero información sobre hospedaje con Nadxheelii Tours.">Consultar</a>
+            </div>
+          </div>
+          </div>
         </div>
         <p class="note">Precios por persona en pesos mexicanos (MXN). ¿Quieres combinar servicios? <a href="#contacto" class="js-whatsapp" data-msg="¡Hola! Quiero combinar varios servicios con Nadxheelii Tours.">Pregúntanos por un paquete</a>.</p>
       </div>
