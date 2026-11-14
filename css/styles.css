@@ -799,7 +799,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, iframe:focus-vi
 
 /* Botón para pausar todas las animaciones (WCAG 2.2.2) */
 .motion-toggle {
-  position: fixed; right: 24px; bottom: 90px; z-index: 40; width: 46px; height: 46px; border-radius: 50%;
+  position: fixed; left: 18px; bottom: 24px; z-index: 40; width: 46px; height: 46px; border-radius: 50%;
   display: grid; place-items: center; cursor: pointer; color: var(--cyan);
   background: rgba(var(--rgb-green-950), .8); border: 1.5px solid rgba(var(--rgb-cyan), .45);
   backdrop-filter: blur(6px); transition: border-color .25s, box-shadow .25s;
@@ -831,7 +831,7 @@ html.motion-off .sky-orb svg, html.motion-off .hero .shrooms-intro, html.motion-
 @media (max-height: 500px) {
   .whatsapp-float { width: 48px; height: 48px; right: 12px; bottom: 12px; }
   .whatsapp-float svg { width: 24px; height: 24px; }
-  .motion-toggle { width: 44px; height: 44px; right: 14px; bottom: 68px; }
+  .motion-toggle { width: 44px; height: 44px; left: 12px; bottom: 14px; }
 }
 
 /* El atributo hidden siempre gana sobre display de los componentes */
@@ -912,3 +912,6 @@ html.is-day .site-header.scrolled { background: rgba(var(--rgb-green-950), .86);
   .footer-links .social-link { width: 40px; height: 40px; }
 }
 @media (max-width: 400px) { .footer-links { flex-wrap: wrap; } }
+/* Espacio bajo el pie para que el botón de pausa (abajo a la izquierda) no tape el texto */
+@media (max-height: 500px) { .site-footer { padding-bottom: 4.5rem; } }
+@media (max-width: 1000px) { .site-footer { padding-bottom: 5.5rem; } }
