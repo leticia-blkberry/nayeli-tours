@@ -848,7 +848,7 @@ html.motion-off .sky-orb svg, html.motion-off .hero .shrooms-intro, html.motion-
   .footer-inner { grid-template-columns: 1fr; gap: .9rem; }
   .footer-links { gap: 1.4rem; }
 }
-@media (min-width: 1200px) { .footer-legal p, .footer-brand p { white-space: nowrap; } .footer-inner { gap: 1rem 2rem; } }
+@media (min-width: 1200px) { .footer-inner { gap: 1rem 2rem; } }
 
 /* ===== Luna / Sol: capa propia, siempre completa (no la recorta el paisaje) ===== */
 .sky-orb {
@@ -889,3 +889,26 @@ html.is-day .site-header.scrolled { background: rgba(var(--rgb-green-950), .86);
 
 /* El paisaje puede pintarse fuera de su caja (copias espejo a los lados); la portada lo recorta */
 .hero-art svg { overflow: visible; }
+
+/* ===== Redes sociales como íconos ===== */
+.social { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6rem; }
+.social-link {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  color: var(--cyan); border: 1.5px solid rgba(var(--rgb-cyan), .4); background: rgba(var(--rgb-white), .04);
+  transition: background .25s, color .25s, border-color .25s, box-shadow .25s, transform .25s;
+}
+.social-link svg { width: 20px; height: 20px; }
+.social-link:hover { background: var(--cyan); color: var(--green-800); border-color: var(--cyan); box-shadow: 0 0 18px rgba(var(--rgb-cyan), .4); transform: translateY(-2px); }
+.footer-inner .social-link { padding: 0; margin: 0; display: grid; }
+.social-contact { margin: -.6rem 0 1.8rem; }
+.footer-links { align-items: center; }
+.icon-link { display: inline-flex !important; align-items: center; gap: .5rem; }
+.icon-link svg { width: 18px; height: 18px; flex: none; }
+.footer-links { gap: 1.2rem; }
+.footer-links .social { flex-wrap: nowrap; gap: .5rem; }
+.footer-links > a { white-space: nowrap; }
+@media (min-width: 1001px) {
+  .footer-inner { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+  .footer-links .social-link { width: 40px; height: 40px; }
+}
+@media (max-width: 400px) { .footer-links { flex-wrap: wrap; } }
