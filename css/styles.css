@@ -219,7 +219,7 @@ p { margin: 0 0 1em; }
 .hero .tuft { opacity: .9; }
 .hero-art #stars circle { animation: twinkle 3s ease-in-out infinite; }
 @keyframes twinkle { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
-.hero-art .moon-glow { animation: breathe 6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.sky-orb .orb-glow { animation: breathe 6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
 @keyframes breathe { 50% { opacity: .65; transform: scale(1.08); } }
 
 @media (max-width: 880px) {
@@ -733,7 +733,7 @@ p { margin: 0 0 1em; }
 .hero-art .cloud-drift { animation: cloud-drift 40s ease-in-out 3.6s infinite alternate; }
 .hero-art .cloud-drift-slow { animation-duration: 55s; animation-direction: alternate-reverse; }
 @keyframes cloud-drift { to { transform: translateX(70px); } }
-.hero-art .moon { animation: intro-moon 1.6s ease 1.7s both; }
+.sky-orb svg { animation: intro-moon 1.6s ease 1.7s both; }
 .hero .shrooms-intro { animation: intro-rise 1.3s cubic-bezier(.16, .84, .3, 1) 2.1s both; --rise: 120px; }
 
 /* Pájaros: aparecen junto a la luna y cruzan el cielo aleteando */
@@ -812,7 +812,7 @@ html.motion-off #magic { display: none; }
 /* La intro de la portada no se congela a medias: salta directo a su estado final */
 html.motion-off .hero-logo, html.motion-off .hero-content > *, html.motion-off .hero-art .intro-fade,
 html.motion-off .hero-art .rise, html.motion-off .hero-art .intro-from-left, html.motion-off .hero-art .intro-from-right,
-html.motion-off .hero-art .moon, html.motion-off .hero .shrooms-intro, html.motion-off .hero-art .birds-intro { animation: none !important; }
+html.motion-off .sky-orb svg, html.motion-off .hero .shrooms-intro, html.motion-off .hero-art .birds-intro { animation: none !important; }
 @media (prefers-reduced-motion: reduce) { .motion-toggle { display: none; } }
 
 /* Menú móvil cerrado: fuera del orden de tabulación y de los lectores de pantalla */
@@ -848,3 +848,40 @@ html.motion-off .hero-art .moon, html.motion-off .hero .shrooms-intro, html.moti
   .footer-links { gap: 1.4rem; }
 }
 @media (min-width: 1200px) { .footer-legal p, .footer-brand p { white-space: nowrap; } .footer-inner { gap: 1rem 2rem; } }
+
+/* ===== Luna / Sol: capa propia, siempre completa (no la recorta el paisaje) ===== */
+.sky-orb {
+  position: absolute; z-index: -1; pointer-events: none;
+  left: 63%; top: 128px; width: clamp(180px, 18vw, 260px); aspect-ratio: 1; transform: translate(-50%, -50%);
+}
+.sky-orb svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.sun-art { display: none; }
+@media (max-width: 880px) {
+  .sky-orb { left: auto; right: -34px; top: 150px; width: 150px; transform: translateY(-50%); }
+}
+
+/* ===== Modo día (7:00–19:00 hora local) ===== */
+html.is-day #sky stop:nth-child(1) { stop-color: #7f9784; }
+html.is-day #sky stop:nth-child(2) { stop-color: #a9b9a6; }
+html.is-day #sky stop:nth-child(3) { stop-color: #d6d9c9; }
+html.is-day #sky stop:nth-child(4) { stop-color: #e9e6d8; }
+html.is-day .hero-art .intro-fade-stars, html.is-day .hero-art .intro-fade-aurora, html.is-day .moon-art { display: none; }
+html.is-day .sun-art { display: inline; }
+html.is-day .sun-rays { transform-box: view-box; transform-origin: 120px 120px; animation: sun-turn 80s linear infinite; }
+@keyframes sun-turn { to { transform: rotate(360deg); } }
+html.is-day .sky-orb .orb-glow { opacity: 1; }
+html.is-day .hero-art .clouds path { fill-opacity: .55; }
+html.is-day .hero-art .wing { stroke: var(--green-800); }
+/* Sombra suave detrás del texto y del menú para que el texto crema se lea sobre el cielo claro */
+html.is-day .hero::after {
+  background:
+    linear-gradient(180deg, rgba(var(--rgb-green-950), .62) 0, rgba(var(--rgb-green-950), 0) 170px),
+    linear-gradient(90deg, rgba(var(--rgb-green-950), .78) 0%, rgba(var(--rgb-green-950), .55) 40%, rgba(var(--rgb-green-950), 0) 66%),
+    linear-gradient(180deg, transparent 88%, var(--green-950) 100%);
+}
+html.is-day .site-header.scrolled { background: rgba(var(--rgb-green-950), .86); }
+@media (max-width: 880px) {
+  html.is-day .hero::after {
+    background: linear-gradient(180deg, rgba(var(--rgb-green-950), .6) 0, rgba(var(--rgb-green-950), .5) 55%, rgba(var(--rgb-green-950), .2) 80%, var(--green-950) 100%);
+  }
+}

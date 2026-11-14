@@ -419,3 +419,17 @@ toggle.addEventListener("click", () => {
     }
   });
 })();
+
+// ===== Día / noche: se vuelve a revisar cada 5 minutos (salvo ?modo=dia|noche) =====
+(() => {
+  const forced = (location.search.match(/[?&]modo=(dia|noche)/) || [])[1];
+  const meta = document.querySelector('meta[name="theme-color"]');
+  const apply = () => {
+    const h = new Date().getHours();
+    const day = forced ? forced === "dia" : h >= 7 && h < 19;
+    document.documentElement.classList.toggle("is-day", day);
+    if (meta) meta.content = day ? "#1f5a42" : "#061a10";
+  };
+  apply();
+  if (!forced) setInterval(apply, 5 * 60 * 1000);
+})();

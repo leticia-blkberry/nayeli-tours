@@ -152,17 +152,14 @@ def build():
         f'              <g transform="translate({x} {y}) scale({k})"><path class="wing" style="animation-delay:-{d}s" d="M-12 0Q-6-7 0 0Q6-7 12 0" fill="none" stroke="#f3eee1" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g>'
         for x, y, k, d in [(0, 0, 1.7, 0), (-58, 24, 1.4, .25), (-52, -28, 1.3, .5), (-112, 44, 1.1, .15), (-106, -50, 1.05, .4), (-164, 10, .95, .3)])
 
+    # The moon/sun is NOT part of this SVG: it lives in .sky-orb in index.html so the
+    # sliced (cropped) landscape can never cut it off.
     # Intro animation hooks (see "Intro" in css/styles.css):
     # clouds slide in from the sides, moon fades in, birds fly past,
     # and each landscape layer rises from below in turn.
     return f'''          <g class="clouds" filter="url(#glow)">
             <g class="intro-from-left"><path class="cloud-drift" d="{clouds2}" fill="#f3eee1" fill-opacity=".10"/></g>
             <g class="intro-from-right"><path class="cloud-drift cloud-drift-slow" d="{clouds1}" fill="#f3eee1" fill-opacity=".16"/></g>
-          </g>
-          <g class="moon">
-            <circle class="moon-glow" cx="900" cy="112" r="170" fill="url(#moonGlow)"/>
-            <circle cx="900" cy="112" r="40" fill="#f3eee1"/>
-            <circle cx="913" cy="103" r="8" fill="#0b2d1c" fill-opacity=".12"/><circle cx="890" cy="128" r="5" fill="#0b2d1c" fill-opacity=".12"/>
           </g>
           <g class="birds-intro" transform="translate(470 160)"><g class="birds">
 {birds}
