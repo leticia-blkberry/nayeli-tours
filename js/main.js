@@ -503,3 +503,49 @@ document.addEventListener("click", (e) => {
 });
 if (location.hash.startsWith("#svc-")) openService(location.hash.slice(1), false);
 window.addEventListener("hashchange", () => { if (location.hash.startsWith("#svc-")) openService(location.hash.slice(1), true); });
+
+// ===== Transiciones de película: cada sección entra como una escena =====
+(() => {
+  if (reduceMotion || !("IntersectionObserver" in window)) return;
+  document.documentElement.classList.add("film");
+  const grain = document.createElement("div"); grain.className = "film-grain"; grain.setAttribute("aria-hidden", "true");
+  const vignette = document.createElement("div"); vignette.className = "film-vignette"; vignette.setAttribute("aria-hidden", "true");
+  document.body.append(vignette, grain);
+
+  const scenes = [...document.querySelectorAll("main > section:not(.hero)")];
+  scenes.forEach((sec) => {
+    sec.classList.add("scene");
+    const fx = document.createElement("div");
+    fx.className = "scene-fx"; fx.setAttribute("aria-hidden", "true");
+    fx.innerHTML = '<span class="veil"></span><span class="bar bar-top"></span><span class="bar bar-bottom"></span>';
+    sec.append(fx);
+  });
+  // Entra cuando ~20% de la sección es visible; vuelve a "cerrar" cuando sale de la pantalla
+  const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+    if (en.isIntersecting && en.intersectionRatio >= 0.2) en.target.classList.add("is-playing");
+    else if (!en.isIntersecting) en.target.classList.remove("is-playing");
+  }), { threshold: [0, 0.2] });
+  scenes.forEach((s) => io.observe(s));
+  // Al saltar a una sección (menú o enlace), reproducir su escena aunque ya esté a la vista
+  window.addEventListener("hashchange", () => {
+    const t = document.querySelector(location.hash.startsWith("#svc-") ? "#servicios" : location.hash);
+    const sec = t && t.closest(".scene");
+    if (sec) { sec.classList.remove("is-playing"); requestAnimationFrame(() => requestAnimationFrame(() => sec.classList.add("is-playing"))); }
+  });
+
+  // Portada: la cámara avanza (zoom lento) y la escena se oscurece mientras bajas
+  const hero = document.querySelector(".hero");
+  const art = hero && hero.querySelector(".hero-art");
+  const grid = hero && hero.querySelector(".hero-grid");
+  let ticking = false;
+  const onScroll = () => {
+    ticking = false;
+    if (motionPaused || !hero) return;
+    const h = hero.offsetHeight;
+    const p = Math.min(1, Math.max(0, window.scrollY / h));
+    if (art) art.style.transform = `scale(${1 + p * 0.12}) translateY(${p * 6}%)`;
+    if (grid) { grid.style.transform = `translateY(${p * -60}px)`; grid.style.opacity = String(1 - p * 1.1); }
+  };
+  window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  motionHooks.push((paused) => { if (paused) { if (art) art.style.transform = ""; if (grid) { grid.style.transform = ""; grid.style.opacity = ""; } } else onScroll(); });
+})();

@@ -900,7 +900,7 @@ html.is-day .site-header.scrolled { background: rgba(var(--rgb-green-950), .86);
 .social-link svg { width: 20px; height: 20px; }
 .social-link:hover { background: var(--cyan); color: var(--green-800); border-color: var(--cyan); box-shadow: 0 0 18px rgba(var(--rgb-cyan), .4); transform: translateY(-2px); }
 .footer-inner .social-link { padding: 0; margin: 0; display: grid; }
-.social-contact { margin: -.6rem 0 1.8rem; }
+.social-contact { margin: 1.4rem 0 1.8rem; }
 .footer-links { align-items: center; }
 .icon-link { display: inline-flex !important; align-items: center; gap: .5rem; }
 .icon-link svg { width: 18px; height: 18px; flex: none; }
@@ -1000,3 +1000,40 @@ html.is-day .site-header.scrolled { background: rgba(var(--rgb-green-950), .86);
 .inline-link:hover { color: var(--cyan); text-decoration-color: var(--cyan); text-decoration-thickness: 2px; }
 .small .inline-link, dd .inline-link { color: inherit; }
 .footer-inner .inline-link, .contact-list .inline-link { padding: 0; margin: 0; display: inline; }
+
+/* ===== Transiciones de película entre secciones ===== */
+/* Grano de película y viñeta sobre todo el sitio */
+.film-grain {
+  position: fixed; inset: -50%; z-index: 60; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .95 0 0 0 0 .93 0 0 0 0 .88 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 1s steps(6) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); } 20% { transform: translate(-3%, 2%); } 40% { transform: translate(2%, -3%); }
+  60% { transform: translate(-2%, -1%); } 80% { transform: translate(3%, 3%); } 100% { transform: translate(0, 0); }
+}
+.film-vignette { position: fixed; inset: 0; z-index: 59; pointer-events: none; box-shadow: inset 0 0 160px rgba(var(--rgb-green-950), .55); }
+
+/* Cada sección entra como una escena: velo oscuro, barras de cine y enfoque de cámara */
+html.film .scene { position: relative; overflow-x: clip; }
+.scene-fx { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+.scene-fx .veil { position: absolute; inset: 0; background: var(--green-950); opacity: 0; transition: opacity 1.1s cubic-bezier(.4, 0, .2, 1); }
+.scene-fx .bar { position: absolute; left: 0; right: 0; height: 0; background: #020805; transition: height 1.2s cubic-bezier(.7, 0, .2, 1); }
+.scene-fx .bar-top { top: 0; } .scene-fx .bar-bottom { bottom: 0; }
+html.film .scene > .container { transition: transform 1.4s cubic-bezier(.2, .7, .2, 1), filter 1.2s ease, opacity 1.2s ease; }
+
+html.film .scene:not(.is-playing) .scene-fx .veil { opacity: 1; transition-duration: .5s; }
+html.film .scene:not(.is-playing) .scene-fx .bar { height: 11vh; transition-duration: .4s; }
+html.film .scene:not(.is-playing) > .container { transform: scale(1.045); filter: blur(6px); opacity: .25; transition-duration: .5s; }
+
+/* Portada: la cámara avanza y se oscurece al bajar (ver js/main.js) */
+.hero-art, .hero-grid { will-change: transform, opacity; }
+
+@media (prefers-reduced-motion: reduce) {
+  .film-grain, .scene-fx { display: none; }
+  html.film .scene > .container { transform: none !important; filter: none !important; opacity: 1 !important; }
+}
+html.motion-off .film-grain, html.motion-off .scene-fx { display: none; }
+html.motion-off.film .scene > .container { transform: none !important; filter: none !important; opacity: 1 !important; transition: none; }
+
+@media print { html.film .scene > .container { transform: none !important; filter: none !important; opacity: 1 !important; } .scene-fx, .film-grain, .film-vignette { display: none !important; } }
