@@ -868,7 +868,7 @@ html.is-day #sky stop:nth-child(3) { stop-color: #d6d9c9; }
 html.is-day #sky stop:nth-child(4) { stop-color: #e9e6d8; }
 html.is-day .hero-art .intro-fade-stars, html.is-day .hero-art .intro-fade-aurora, html.is-day .moon-art { display: none; }
 html.is-day .sun-art { display: inline; }
-html.is-day .sun-rays { transform-box: view-box; transform-origin: 120px 120px; animation: sun-turn 80s linear infinite; }
+
 @keyframes sun-turn { to { transform: rotate(360deg); } }
 html.is-day .sky-orb .orb-glow { opacity: 1; }
 html.is-day .hero-art .clouds path { fill-opacity: .55; }
