@@ -350,7 +350,7 @@ p { margin: 0 0 1em; }
 .tour .btn { margin-top: auto; align-self: flex-start; }
 
 /* ===== Recorrido interactivo (Llegada → Integración) ===== */
-.journey { margin-top: 4.5rem; }
+.journey { margin-top: 1rem; }
 .journey-track { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem; }
 .journey-line {
   position: absolute; top: 27px; left: 12.5%; right: 12.5%; height: 2px;
@@ -404,7 +404,7 @@ p { margin: 0 0 1em; }
 .journey-art svg, .journey-art img { width: 62px; height: 62px; }
 .journey-art img { width: 72px; height: 72px; }
 .journey-kicker { font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan); font-weight: 600; margin-bottom: .4rem; }
-.journey-text h4 { font-size: 1.45rem; color: var(--white); margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .05em; }
+.journey-text h3 { font-size: 1.45rem; color: var(--white); margin-bottom: .5rem; text-transform: uppercase; letter-spacing: .05em; }
 .journey-text p { color: var(--muted); margin: 0 0 .5rem; max-width: 60ch; }
 .journey-text p.journey-kicker { color: var(--cyan); margin-bottom: .4rem; }
 .journey-text .journey-more { color: rgba(var(--rgb-white), .62); margin: 0; }
@@ -431,7 +431,7 @@ p { margin: 0 0 1em; }
   .journey-art { width: 84px; height: 84px; }
   .journey-art svg { width: 48px; height: 48px; }
   .journey-art img { width: 56px; height: 56px; }
-  .journey-text h4 { font-size: 1.2rem; }
+  .journey-text h3 { font-size: 1.2rem; }
 }
 @media (max-width: 380px) {
   /* En pantallas muy angostas el título va en el panel; la etiqueta queda para lectores de pantalla */
@@ -983,3 +983,20 @@ html.is-day .site-header.scrolled { background: rgba(var(--rgb-green-950), .86);
   .svc-tab-icon img, .svc-tab-icon svg { width: 32px; height: 32px; }
   .svc-side .btn { align-self: stretch; }
 }
+
+/* Íconos en lugar de etiquetas en la lista de contacto */
+.contact-list .dt-icon { display: flex; align-items: flex-start; padding-top: .15em; color: var(--cyan); }
+.contact-list .dt-icon svg { width: 22px; height: 22px; }
+@media (max-width: 820px) {
+  .contact-list { grid-template-columns: auto 1fr; gap: .6rem 1rem; }
+  .contact-list dd { margin-bottom: 0; }
+}
+
+/* Enlaces dentro del texto: subrayado visible (no solo color) */
+.inline-link {
+  color: var(--white); text-decoration: underline; text-decoration-color: rgba(var(--rgb-cyan), .55);
+  text-decoration-thickness: 1px; text-underline-offset: .2em; transition: color .2s, text-decoration-color .2s;
+}
+.inline-link:hover { color: var(--cyan); text-decoration-color: var(--cyan); text-decoration-thickness: 2px; }
+.small .inline-link, dd .inline-link { color: inherit; }
+.footer-inner .inline-link, .contact-list .inline-link { padding: 0; margin: 0; display: inline; }

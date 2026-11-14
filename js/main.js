@@ -60,7 +60,7 @@ if ("IntersectionObserver" in window) {
       }),
     { threshold: 0.12 }
   );
-  document.querySelectorAll(".section-head, .pillar, .journey, .faq-item, .svc, .tour, .g-item, .review, .event, .care-list li")
+  document.querySelectorAll(".section-head, .journey, .faq-item, .svc, .tour, .g-item, .review, .event, .care-list li")
     .forEach((el) => { el.classList.add("reveal"); io.observe(el); });
 }
 
@@ -482,3 +482,24 @@ document.querySelectorAll("[data-service]").forEach((a) => a.addEventListener("c
   sel.value = a.dataset.service;
   sel.dispatchEvent(new Event("change"));
 }));
+
+// ===== Enlaces a un servicio (#svc-...): abren esa pestaña y llevan a la sección =====
+const openService = (id, smooth) => {
+  const tab = document.getElementById(id + "-tab");
+  const section = document.getElementById("servicios");
+  if (!tab || !section) return false;
+  tab.click();
+  section.scrollIntoView({ behavior: smooth && !reduceMotion ? "smooth" : "auto", block: "start" });
+  tab.focus({ preventScroll: true });
+  return true;
+};
+document.addEventListener("click", (e) => {
+  const a = e.target.closest('a[href^="#svc-"]');
+  if (!a) return;
+  if (openService(a.getAttribute("href").slice(1), true)) {
+    e.preventDefault();
+    history.replaceState(null, "", a.getAttribute("href"));
+  }
+});
+if (location.hash.startsWith("#svc-")) openService(location.hash.slice(1), false);
+window.addEventListener("hashchange", () => { if (location.hash.startsWith("#svc-")) openService(location.hash.slice(1), true); });
