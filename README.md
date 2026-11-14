@@ -46,7 +46,7 @@ El sitio quedará en https://leticia-blkberry.github.io/nayeli-tours/
 
 ## Información pendiente del cliente (para completar la página)
 
-- Precio, duración, tamaño de grupo y qué incluye cada servicio (sección `#servicios` y la pregunta "¿Cuánto cuesta y qué incluye?").
+- ~~Precio, duración y qué incluye~~ — recibido el 12/11/2026 para Honguitos, Temazcal y Senderismo. Falta: la segunda ruta de senderismo, qué llevar a la experiencia con hongos, precio para 1 persona en temazcal y senderismo, e información de Hospedaje.
 - Punto de encuentro y recomendaciones para llegar (pregunta "¿Dónde nos encontramos y cómo llego?").
 - Formas de pago y política de cancelación (se pueden agregar como preguntas nuevas).
 - Fotos reales para la galería.
