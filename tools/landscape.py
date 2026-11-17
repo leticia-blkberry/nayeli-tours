@@ -79,8 +79,39 @@ def ridge(points, rough, detail=5):
     return out
 
 
+LAST_RIDGE = []
+
+
+def small_pine(x, y, h):
+    """Compact 3-tier pine (integer coords to keep the SVG small)."""
+    w = h * 0.5
+    pts = [(x, y - h), (x + w * .35, y - h * .62), (x + w * .2, y - h * .62), (x + w * .45, y - h * .3),
+           (x + w * .3, y - h * .3), (x + w * .5, y), (x - w * .5, y), (x - w * .3, y - h * .3),
+           (x - w * .45, y - h * .3), (x - w * .2, y - h * .62), (x - w * .35, y - h * .62)]
+    return "M" + " ".join(f"{px:.0f} {py:.0f}" for px, py in pts) + "Z"
+
+
+def y_at(r, x):
+    for (xa, ya), (xb, yb) in zip(r, r[1:]):
+        if xa <= x <= xb:
+            return ya + (yb - ya) * (x - xa) / (xb - xa or 1)
+    return r[-1][1]
+
+
+def forest_on(r, rng, x0, x1, bottom, hmin, hmax, row_gap, xstep):
+    """Pines along the ridge so the skyline is tree-lined (slopes use a pattern fill)."""
+    dark, light = [], []
+    x = x0
+    while x < x1:  # treeline on the ridge
+        h = rng.uniform(hmin, hmax)
+        (light if rng.random() < .3 else dark).append(small_pine(x, y_at(r, x) + h * .55, h))
+        x += rng.uniform(xstep * .5, xstep * .8)
+    return "".join(dark), "".join(light)
+
+
 def mountain(points, rough):
     r = ridge(points, rough)
+    LAST_RIDGE[:] = r
     return fmt(r + [(r[-1][0], 900), (r[0][0], 900)])
 
 
@@ -134,7 +165,24 @@ def build():
     clouds2 = " ".join(cloud(*c) for c in [(80, 180, 320, 26), (900, 150, 420, 26), (430, 300, 380, 22), (1180, 330, 480, 26), (1000, 260, 280, 18)])
 
     far = mountain([(-40, 470), (120, 410), (260, 440), (420, 360), (560, 420), (700, 390), (840, 440), (990, 370), (1120, 420), (1260, 350), (1400, 410), (1480, 400)], 10)
+    far_r = list(LAST_RIDGE)
     main = mountain([(-40, 560), (110, 470), (230, 330), (330, 250), (420, 330), (520, 300), (600, 380), (720, 470), (860, 430), (980, 330), (1090, 270), (1170, 320), (1260, 300), (1380, 400), (1480, 450)], 9)
+    main_r = list(LAST_RIDGE)
+    V = random.Random(11)  # separate sequence: adding trees doesn't change the rest of the scene
+    far_dark, far_light = forest_on(far_r, V, -40, 1480, 600, 9, 15, 11, 9)
+    main_dark, main_light = forest_on(main_r, V, -40, 1480, 650, 12, 22, 14, 12)
+
+    def pattern(pid, w, h, n, hmin, hmax, dark, light):
+        trees_d, trees_l = [], []
+        for _ in range(n):
+            x, y, th = V.uniform(0, w), V.uniform(0, h), V.uniform(hmin, hmax)
+            for ox in (-w, 0, w):          # repeat across tile edges so the tiling is seamless
+                for oy in (-h, 0, h):
+                    (trees_l if len(trees_d) % 3 == 2 else trees_d).append(small_pine(x + ox, y + oy, th))
+        return (f'<pattern id="{pid}" width="{w}" height="{h}" patternUnits="userSpaceOnUse">'
+                f'<path d="{"".join(trees_d)}" fill="{dark}"/><path d="{"".join(trees_l)}" fill="{light}"/></pattern>')
+    pat_far = pattern("forest-far", 90, 40, 9, 8, 13, "#2a5a45", "#3a6b55")
+    pat_main = pattern("forest-main", 130, 56, 10, 11, 19, "#1b4533", "#2f5f49")
     hi = " ".join([streaks(330, 250, 5, 140), streaks(520, 300, 3, 90), streaks(1090, 270, 5, 140), streaks(1260, 300, 3, 90), streaks(230, 330, 2, 80)])
     hills = fmt(ridge([(-40, 640), (200, 600), (420, 630), (640, 590), (860, 625), (1080, 595), (1300, 620), (1480, 600)], 6, 20) + [(1480, 900), (-40, 900)])
 
@@ -148,26 +196,48 @@ def build():
     _giants = " ".join([fir(10, 905, 560, 230), fir(120, 905, 430, 180), fir(1330, 905, 470, 200), fir(1440, 905, 590, 240)])
     ground = fmt(ridge([(-40, 855), (360, 845), (720, 860), (1080, 848), (1480, 856)], 5, 30) + [(1480, 900), (-40, 900)])
 
-    birds = "\n".join(
-        f'              <g transform="translate({x} {y}) scale({k})"><path class="wing" style="animation-delay:-{d}s" d="M-12 0Q-6-7 0 0Q6-7 12 0" fill="none" stroke="#f3eee1" stroke-width="1.8" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g>'
-        for x, y, k, d in [(0, 0, 1.7, 0), (-58, 24, 1.4, .25), (-52, -28, 1.3, .5), (-112, 44, 1.1, .15), (-106, -50, 1.05, .4), (-164, 10, .95, .3)])
+    # One owl, seen from behind, flying away into the distance (animation in css/styles.css)
+    wing = ("M-7 -6C-22 -20 -48 -22 -62 -10Q-64 -4 -57 -3Q-55 2 -49 0Q-46 5 -40 3"
+            "Q-36 8 -30 6Q-25 10 -19 8Q-13 11 -7 7Z")
+    # mirror the left wing's x coordinates for the right wing (no transform, so CSS can animate it)
+    def _mirror(d):
+        import re as _re
+        nums = _re.findall(r"[A-Za-z]|-?\d+(?:\.\d+)?", d)
+        out, i = [], 0
+        for t in nums:
+            if t.isalpha():
+                out.append(t); i = 0
+            else:
+                v = float(t)
+                out.append(f"{-v:g}" if i % 2 == 0 else f"{v:g}"); i += 1
+        return " ".join(out)
+    wing_r = _mirror(wing)
+    owl = f'''              <g class="owl">
+                <path class="owl-wing owl-wing-l" d="{wing}"/>
+                <path class="owl-wing owl-wing-r" d="{wing_r}"/>
+                <path class="owl-body" d="M-7 14Q0 26 7 14Z"/>
+                <ellipse class="owl-body" cx="0" cy="4" rx="11" ry="13"/>
+                <circle class="owl-body" cx="0" cy="-11" r="10"/>
+                <path class="owl-body" d="M-8-17-9-24-3-19ZM8-17 9-24 3-19Z"/>
+              </g>'''
 
     # The moon/sun is NOT part of this SVG: it lives in .sky-orb in index.html so the
     # sliced (cropped) landscape can never cut it off.
     # Intro animation hooks (see "Intro" in css/styles.css):
-    # clouds slide in from the sides, moon fades in, birds fly past,
+    # clouds slide in from the sides, moon fades in, an owl flies away,
     # and each landscape layer rises from below in turn.
     # Everything scenic sits in #land. Two mirrored copies (about x=0 and x=1440)
     # extend it seamlessly to the sides, so very wide screens can show the full
     # height (preserveAspectRatio "meet", set in js/main.js) instead of cropping
     # the mountain tops. Birds stay outside so they are not duplicated.
     return f'''          <g id="land">
+          <defs>{pat_far}{pat_main}</defs>
           <g class="clouds" filter="url(#glow)">
             <g class="intro-from-left"><path class="cloud-drift" d="{clouds2}" fill="#f3eee1" fill-opacity=".10"/></g>
             <g class="intro-from-right"><path class="cloud-drift cloud-drift-slow" d="{clouds1}" fill="#f3eee1" fill-opacity=".16"/></g>
           </g>
-          <g class="rise rise-1"><path d="{far}" fill="{c_far}"/></g>
-          <g class="rise rise-2"><path d="{main}" fill="{c_main}"/><path d="{hi}" fill="{c_hi}"/></g>
+          <g class="rise rise-1"><path d="{far}" fill="{c_far}"/><path d="{far}" fill="url(#forest-far)" transform="translate(0 14)"/><path d="{far_dark}" fill="#2a5a45"/><path d="{far_light}" fill="#3a6b55"/></g>
+          <g class="rise rise-2"><path d="{main}" fill="{c_main}"/><path d="{main}" fill="url(#forest-main)" transform="translate(0 18)"/><path d="{main_dark}" fill="#1b4533"/><path d="{main_light}" fill="#2f5f49"/></g>
           <rect class="mist mist-a" x="0" y="520" width="1440" height="140" fill="url(#mist)"/>
           <g class="rise rise-3"><path d="{hills}" fill="{c_hills}"/></g>
           <g class="rise rise-4"><path d="{row1}" fill="{c_row1}"/></g>
@@ -178,9 +248,9 @@ def build():
           </g>
           <use class="land-mirror" href="#land" transform="matrix(-1 0 0 1 0 0)"/>
           <use class="land-mirror" href="#land" transform="matrix(-1 0 0 1 2880 0)"/>
-          <g class="birds-intro" transform="translate(470 160)"><g class="birds">
-{birds}
-          </g></g>
+          <g class="birds-intro" transform="translate(520 170)">
+{owl}
+          </g>
 '''
 
 

@@ -737,21 +737,23 @@ p { margin: 0 0 1em; }
 .sky-orb svg { animation: intro-moon 1.6s ease 1.7s both; }
 .hero .shrooms-intro { animation: intro-rise 1.3s cubic-bezier(.16, .84, .3, 1) 2.1s both; --rise: 120px; }
 
-/* Pájaros: aparecen junto a la luna y cruzan el cielo aleteando */
+/* Búho: aparece en el cielo y se aleja volando hacia las montañas */
 .hero-art .birds-intro { animation: intro-fade 1.2s ease 2.2s both; }
-.hero-art .birds { animation: birds-fly 46s linear 2.2s infinite; }
-@keyframes birds-fly {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(260px, -40px); }
-  50% { transform: translate(560px, -10px); }
-  74% { transform: translate(900px, -60px); opacity: 1; }
-  75% { transform: translate(900px, -60px); opacity: 0; }
-  76% { transform: translate(-900px, 20px); opacity: 0; }
-  77% { transform: translate(-900px, 20px); opacity: 1; }
-  100% { transform: translate(0, 0); }
+.hero-art .owl { animation: owl-away 26s cubic-bezier(.35, 0, .65, 1) 2.4s infinite; opacity: 0; }
+@keyframes owl-away {
+  0%   { transform: translate(-60px, -10px) scale(1.4); opacity: 0; }
+  5%   { opacity: .95; }
+  25%  { transform: translate(90px, -20px) scale(.8); }
+  45%  { transform: translate(230px, 5px) scale(.32); opacity: .85; }
+  55%  { transform: translate(300px, 20px) scale(.1); opacity: 0; }
+  100% { transform: translate(300px, 20px) scale(.1); opacity: 0; }
 }
-.hero-art .wing { transform-box: fill-box; transform-origin: center; animation: flap .55s ease-in-out infinite alternate; }
-@keyframes flap { from { transform: scaleY(1); } to { transform: scaleY(-.55); } }
+.hero-art .owl-body, .hero-art .owl-wing { fill: #f3eee1; }
+.hero-art .owl-wing { transform-box: fill-box; animation: owl-flap .7s ease-in-out infinite alternate; }
+.hero-art .owl-wing-l { transform-origin: 100% 40%; }
+.hero-art .owl-wing-r { transform-origin: 0% 40%; }
+@keyframes owl-flap { from { transform: scaleY(1); } to { transform: scaleY(-.5); } }
+html.is-day .hero-art .owl-body, html.is-day .hero-art .owl-wing { fill: var(--green-800); }
 
 /* ===== Tipografía del logo =====
    Títulos en Montserrat, en mayúsculas y con letras espaciadas como
@@ -872,7 +874,6 @@ html.is-day .sun-art { display: inline; }
 @keyframes sun-turn { to { transform: rotate(360deg); } }
 html.is-day .sky-orb .orb-glow { opacity: 1; }
 html.is-day .hero-art .clouds path { fill-opacity: .55; }
-html.is-day .hero-art .wing { stroke: var(--green-800); }
 /* Sombra suave detrás del texto y del menú para que el texto crema se lea sobre el cielo claro */
 html.is-day .hero::after {
   background:
