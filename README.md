@@ -15,20 +15,7 @@ images/galeria/   Fotos de la galería
 
 ## Pendiente del cliente
 
-1. **Fotos** — sube las fotos (JPG, ~1600px de ancho) a `images/galeria/` con estos nombres.
-   Si falta alguna, se muestra una ilustración en su lugar.
-
-   | Archivo | Foto sugerida |
-   |---|---|
-   | `atardecer.jpg` | Atardecer entre pinos (vertical) |
-   | `mar-de-nubes.jpg` | Vista del mar de nubes |
-   | `bosque.jpg` | Bosque de pinos |
-   | `niebla.jpg` | Rayos de luz en la niebla (horizontal) |
-   | `hongo-1.jpg` | Amanita roja |
-   | `temazcal.jpg` | El temazcal |
-   | `sendero.jpg` | Persona caminando en el sendero (vertical) |
-   | `hamacas.jpg` | Espacio con hamacas |
-   | `cabana.jpg` | Cabaña con el letrero de hongo iluminado |
+1. **Fotos** — la galería ya usa fotos reales en `images/galeria/` (atardecer, sendero, bosque, mar-de-nubes, hongos). Para agregar más: subir el JPG (≈1000 px de ancho) y añadir un `<figure class="g-item">` en `#galeria`.
 
 2. **Servicios y precios** — los textos de Senderismo, Medicina, Temazcal y Hospedaje (sección `#servicios`) son una propuesta; ajustar descripciones, duración y precios.
 3. **Eventos** — actualizar la sección `#eventos` cuando haya nuevas fechas.
