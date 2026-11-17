@@ -985,42 +985,27 @@ html.is-day .site-header.scrolled { background: rgba(var(--rgb-green-950), .86);
 .small .inline-link, dd .inline-link { color: inherit; }
 .footer-inner .inline-link, .contact-list .inline-link { padding: 0; margin: 0; display: inline; }
 
-/* ===== Transiciones de película entre secciones ===== */
-/* Grano de película y viñeta sobre todo el sitio */
-.film-grain {
-  position: fixed; inset: -50%; z-index: 60; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .95 0 0 0 0 .93 0 0 0 0 .88 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grain 1s steps(6) infinite;
+/* ===== Transiciones de película en los elementos (no en el fondo) =====
+   Cada bloque de contenido entra como un corte de película: se revela de abajo
+   hacia arriba (cortinilla), sube y entra en foco, uno tras otro. */
+html.film .film-in {
+  opacity: 1; transform: none; filter: none; clip-path: inset(0 0 0 0 round 0);
+  transition:
+    opacity .9s ease var(--d, 0s),
+    transform 1.1s cubic-bezier(.2, .75, .15, 1) var(--d, 0s),
+    clip-path 1s cubic-bezier(.65, 0, .25, 1) var(--d, 0s),
+    filter .9s ease var(--d, 0s),
+    translate .35s ease, box-shadow .35s ease, border-color .35s ease, background .3s ease;
 }
-@keyframes grain {
-  0% { transform: translate(0, 0); } 20% { transform: translate(-3%, 2%); } 40% { transform: translate(2%, -3%); }
-  60% { transform: translate(-2%, -1%); } 80% { transform: translate(3%, 3%); } 100% { transform: translate(0, 0); }
+html.film .scene:not(.is-playing) .film-in {
+  opacity: 0; transform: translateY(46px) scale(.97); filter: blur(8px);
+  clip-path: inset(0 0 100% 0);
+  transition-duration: .35s; transition-delay: 0s;
 }
-.film-vignette { position: fixed; inset: 0; z-index: 59; pointer-events: none; box-shadow: inset 0 0 160px rgba(var(--rgb-green-950), .55); }
+@media (prefers-reduced-motion: reduce) { html.film .film-in { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; } }
+html.motion-off.film .film-in { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; transition: none !important; }
 
-/* Cada sección entra como una escena: velo oscuro, barras de cine y enfoque de cámara */
-html.film .scene { position: relative; overflow-x: clip; }
-.scene-fx { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
-.scene-fx .veil { position: absolute; inset: 0; background: var(--green-950); opacity: 0; transition: opacity 1.1s cubic-bezier(.4, 0, .2, 1); }
-.scene-fx .bar { position: absolute; left: 0; right: 0; height: 0; background: #020805; transition: height 1.2s cubic-bezier(.7, 0, .2, 1); }
-.scene-fx .bar-top { top: 0; } .scene-fx .bar-bottom { bottom: 0; }
-html.film .scene > .container { transition: transform 1.4s cubic-bezier(.2, .7, .2, 1), filter 1.2s ease, opacity 1.2s ease; }
-
-html.film .scene:not(.is-playing) .scene-fx .veil { opacity: 1; transition-duration: .5s; }
-html.film .scene:not(.is-playing) .scene-fx .bar { height: 11vh; transition-duration: .4s; }
-html.film .scene:not(.is-playing) > .container { transform: scale(1.045); filter: blur(6px); opacity: .25; transition-duration: .5s; }
-
-/* Portada: la cámara avanza y se oscurece al bajar (ver js/main.js) */
-.hero-art, .hero-grid { will-change: transform, opacity; }
-
-@media (prefers-reduced-motion: reduce) {
-  .film-grain, .scene-fx { display: none; }
-  html.film .scene > .container { transform: none !important; filter: none !important; opacity: 1 !important; }
-}
-html.motion-off .film-grain, html.motion-off .scene-fx { display: none; }
-html.motion-off.film .scene > .container { transform: none !important; filter: none !important; opacity: 1 !important; transition: none; }
-
-@media print { html.film .scene > .container { transform: none !important; filter: none !important; opacity: 1 !important; } .scene-fx, .film-grain, .film-vignette { display: none !important; } }
+@media print { html.film .film-in { opacity: 1 !important; transform: none !important; filter: none !important; clip-path: none !important; } }
 
 /* Sol de día: disco suave con halo difuso, sin rayos dibujados */
 html.is-day .sky-orb svg { filter: blur(.6px); }
