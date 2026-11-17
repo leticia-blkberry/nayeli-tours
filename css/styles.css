@@ -159,7 +159,7 @@ p { margin: 0 0 1em; }
   .nav {
     position: fixed; top: 88px; left: 0; right: 0; height: calc(100vh - 88px); height: calc(100dvh - 88px); overflow-y: auto;
     flex-direction: column; justify-content: flex-start; width: auto;
-    padding: 2rem 16px; gap: 1.4rem;
+    padding: 4.5rem 16px 2rem; gap: 1.4rem;
     background: radial-gradient(circle at 50% 0%, rgba(var(--rgb-violet), .25), transparent 60%), rgba(var(--rgb-green-950), .97);
     transform: translateX(100%); transition: transform .35s ease;
   }
@@ -1025,3 +1025,5 @@ html.motion-off.film .scene > .container { transform: none !important; filter: n
 /* Sol de día: disco suave con halo difuso, sin rayos dibujados */
 html.is-day .sky-orb svg { filter: blur(.6px); }
 html.is-day .sky-orb .orb-glow { opacity: .9; }
+/* Menú móvil abierto: el logo siempre se compacta para no tapar los enlaces */
+@media (max-width: 1180px) { body.nav-open .brand-mark { width: 120px; height: 120px; } }
