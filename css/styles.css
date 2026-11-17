@@ -1012,3 +1012,23 @@ html.is-day .sky-orb svg { filter: blur(.6px); }
 html.is-day .sky-orb .orb-glow { opacity: .9; }
 /* Menú móvil abierto: el logo siempre se compacta para no tapar los enlaces */
 @media (max-width: 1180px) { body.nav-open .brand-mark { width: 120px; height: 120px; } }
+
+/* Recorrido con fotos reales en lugar de íconos */
+.journey-panel { grid-template-columns: minmax(200px, 300px) 1fr; gap: 2.4rem; }
+figure.journey-art {
+  margin: 0; width: 100%; height: auto; aspect-ratio: 4 / 5; border-radius: 18px; overflow: hidden;
+  background: var(--green-800); box-shadow: 0 0 0 1.5px rgba(var(--rgb-cyan), .5), 0 20px 40px rgba(var(--rgb-green-950), .5);
+}
+figure.journey-art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s ease; }
+.journey-panel.is-active figure.journey-art img { transform: scale(1.03); }
+@media (max-width: 700px) {
+  .journey-panel { grid-template-columns: 1fr; }
+  figure.journey-art { width: 100%; aspect-ratio: 4 / 4.2; }
+  figure.journey-art img { object-position: 50% 35%; }
+}
+/* Tarjeta del recorrido: ajustada a su contenido y centrada; foto 20% más grande */
+.journey-panels { max-width: 980px; margin-inline: auto; }
+.journey-panel { grid-template-columns: 360px minmax(0, 1fr); align-items: center; }
+.journey-text p { max-width: none; }
+@media (max-width: 900px) { .journey-panel { grid-template-columns: minmax(200px, 300px) minmax(0, 1fr); } }
+@media (max-width: 700px) { .journey-panel { grid-template-columns: 1fr; } }
